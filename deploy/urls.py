@@ -15,8 +15,9 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-
+from oruma.views import landing_view
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^$',landing_view,  name='homepage'),
     url(r'^oruma/', include('oruma.urls'), name='oruma')
 ]
