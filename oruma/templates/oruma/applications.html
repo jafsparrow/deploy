@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+
+
+{% block headcss %}
+<style>
+
+</style>
+
+{% endblock headcss %}
+
+
+{% block content %}
+
+<div class="row">
+  <div class="col-md-12">
+      <table class="table table-bordered">
+        <tr>
+          <thead>
+            <th width="5%">S No:</th>
+            <th>Application No:</th>
+            <th>Estimated Amount</th>
+            <th>Ouruma Expected Amount: </th>
+            <th>Status</th>
+          </thead>
+          <tbody>
+            {% for application  in applications %}
+            <tr>
+              <td>{{ forloop.counter }}</td>
+              <td><a href="{% url 'application_summary' application.id %}">{{ application.id }}</a></td>
+              <td>{{ application.estimated_amount }}</td>
+              <td>{{ application.ouruma_expected }}</td>
+              <td>{{ application.get_status_display }}</td>
+
+            </tr>
+              {% endfor %}
+          </tbody>
+
+      </table>
+
+    </div>
+
+    <div class="row">
+      <a href="{% url 'landing_view' %}"class="btn btn-primary btn-large pull-right">Back to Home</a>
+
+    </div>
+</div>
+
+{% endblock %}

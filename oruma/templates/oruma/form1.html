@@ -1,0 +1,12 @@
+
+<form class="" method="post">
+  {% csrf_token %}
+  {{ applicantForm.as_p }}
+
+
+<hr>
+  {{ recommender.as_p }}
+
+
+  <button type="submit" name="button">Submit</button>
+</form>

@@ -1,0 +1,29 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="{% static 'oruma/css/bootstrap.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block headcss %}
+    {% endblock headcss %}
+  </head>
+  <body>
+    <div class="container">
+      {% block content %}
+      {% endblock %}
+      {% block forms %}
+      {% endblock forms %}
+
+    </div>
+
+
+
+<script src="{% static 'oruma/js/jquery.js' %}" charset="utf-8"></script>
+<script src="{% static 'oruma/js/boostrap.js' %}" charset="utf-8"></script>
+{% block extrajs %}
+{% endblock extrajs %}
+  </body>
+</html>
