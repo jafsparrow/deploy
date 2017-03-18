@@ -10,6 +10,11 @@
    padding-bottom: 80px;
    border: lightgrey 1px solid;
  }
+
+ body{
+
+   margin-bottom: 100px;
+ }
  table {
    width: 100%;
 
@@ -61,7 +66,7 @@
   </div>
   <div class="row">
 
-        <table>
+        <table class="table">
             <tr>
               <td><b>Estimated Amount: </b>{{ application.estimated_amount }}</td>
               <td><b>Self Contribution: </b>{{ application.self_amount }}</td>
@@ -77,9 +82,9 @@
 <div class="row">
   <div class="col-md-6">
     <h4>Applicant Details <a href="#" class="pull-right"><button class="btn btn-secondary">Edit</button></a></h4>
+      <hr>
 
-    <hr>
-    <table>
+    <table >
 
         <tr>
           <th>Name <span class="pull-right">:</span></th>
