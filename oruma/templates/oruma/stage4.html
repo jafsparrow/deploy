@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block forms %}
+<form class="" enctype="multipart/form-data" method="post">
+  {% csrf_token %}
+    {{ formset.management_form }}
+    <table class="table table-hover">
+      <thead>
+        <th width="5%">S No:</th>
+        <th width=30%"">Document Type</th>
+        <th>Details</th>
+
+      </thead>
+
+        {% for form in formset %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ form.description }}</td>
+            {% if form.initial %}
+              <td><a href="{{ form.initial.document}}">{{ form.initial.description}}</a></td>
+            {% else %}
+              <td>{{ form.document }}</td>
+            {% endif %}
+        </tr>
+
+
+        {% endfor %}
+
+
+    </table>
+
+
+
+
+  <button type="submit" name="button">submit</button>
+</form>
+{% endblock forms %}

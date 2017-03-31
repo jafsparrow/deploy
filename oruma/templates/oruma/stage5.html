@@ -1,0 +1,176 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="summary_title">
+  <div class="row">
+    <h2>Application No: <b>{{ application.id }}</b></h2>
+  </div>
+  <div class="row">
+          <table class="table table-bordered">
+              <tr>
+                <td><b>Estimated Amount: </b>{{ application.estimated_amount }}</td>
+                <td><b>Self Contribution: </b>{{ application.self_amount }}</td>
+                <td><b>Amount requested from Oruma: </b>{{ application.ouruma_expected }}</td>
+                <td><b>Application Date: </b>{{ application.created |date }}</td>
+              </tr>
+          </table>
+  </div>
+</section>
+
+<section class="userdetails">
+  <div class="row">
+    <div class="col-md-6">
+
+      <h4>Applicant Details <a href="{% url 'applicant_update_view' application.id %}" class="btn btn-success pull-right">Edit</a></h4>
+      <hr>
+        <table class="table table-bordered" >
+          <tr>
+            <th>Name</th>
+            <td>{{ applicant.first_name }} {{ applicant.last_name }}</td>
+          </tr>
+          <tr>
+            <th>Gender</th>
+            <td>{{ applicant.sex }}</td>
+          </tr>
+          <tr>
+            <th>Phone No</th>
+            <td>{{ applicant.phone_number }}</td>
+          </tr>
+          <tr>
+            <th>Address</th>
+            <td>{{ applicant.address }}</td>
+          </tr>
+          <tr>
+            <th>Date of Birth</th>
+            <td>{{ applicant.date_of_birth | date }}</td>
+          </tr>
+          <tr>
+            <th>Occupaton</th>
+            <td>{{ applicant.occupation }}</td>
+          </tr>
+          <tr>
+            <th>Number of Earners</th>
+            <td>{{ applicant.no_earners }}</td>
+          </tr>
+          <tr>
+            <th>Monthly Family Income</th>
+            <td>{{ applicant.monthly_family_income}}</td>
+          </tr>
+      </table>
+    </div>
+    <div class="col-md-6">
+        <h4>Recommender Details<a href="#" class="btn btn-success pull-right">Edit</a></h4>
+        <hr>
+        <table class="table table-bordered">
+
+            <tr>
+              <th>Name </th>
+              <td>{{ recommender.first_name }} {{ recommender.last_name }}</td>
+            </tr>
+
+            <tr>
+              <th>Phone No</th>
+              <td>{{ recommender.phone_number }}</td>
+            </tr>
+            <tr>
+              <th>Email</th>
+              <td>{{ recommender.email }}</td>
+            </tr>
+            <tr>
+              <th>Address</th>
+              <td>{{ recommender.address }}</td>
+            </tr>
+
+          </table>
+
+      </div>
+
+    </div>
+
+  </section>
+
+<section class="dependent">
+  <hr>
+  <h4>Dependents<a href="#" class="btn btn-success pull-right">Edit</a></h4>
+  <hr>
+  <div class="row">
+    <div class="col-md-12">
+        <table class="table table-bordered">
+          <tr>
+            <thead>
+              <th width="5%">#</th>
+              <th>Name</th>
+              <th>Relation</th>
+              <th width="10%">Age</th>
+              <th>Occupation</th>
+            </thead>
+
+            {% for depended in dependends %}
+            <tr>
+              <td>{{ forloop.counter }}</td>
+              <td>{{ depended.full_name }}</td>
+              <td>{{ depended.relation }}</td>
+              <td>{{ depended.age }}</td>
+              <td>{{ depended.occupation }}</td>
+
+            </tr>
+              {% endfor %}
+        </table>
+      </div>
+  </div>
+  <hr>
+</section>
+<section class="aids">
+  <h4>Financial Aid Details<a href="#" class="btn btn-success pull-right">Add or Edit</a></h4>
+  <hr>
+  <div class="row">
+    <div class="col-md-12">
+        <table class="table table-bordered">
+          <tr>
+            <thead>
+              <th>Aid Needed</th>
+              <th width="70%">Details</th>
+            </thead>
+
+            {% for detail in details %}
+            <tr>
+              <td>{{ detail.aid_type }}</td>
+              <td>{{ detail.add_information }}</td>
+            </tr>
+              {% endfor %}
+        </table>
+      </div>
+  </div>
+
+</section>
+
+<section class="docs">
+
+    <h4>Attached Documents<a href="#" class="btn btn-success pull-right">Manage Docs</a></h4>
+    <hr>
+    <div class="row">
+      <div class="col-md-12">
+          <table class="table table-bordered">
+
+              <thead>
+                <th width="10%">#</th>
+                <th =>Document</th>
+              </thead>
+              {% for doc in docs %}
+              <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ doc.description }}</td>
+              </tr>
+
+              {% endfor %}
+
+
+</section>
+
+
+{% endblock %}
+{% block forms %}
+
+
+
+
+{% endblock forms %}

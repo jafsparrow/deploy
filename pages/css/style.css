@@ -1,0 +1,56 @@
+body {
+  background: #eeeeee;
+}
+
+.login-wrapper {
+  background: white;
+  max-width: 480px;
+  min-height: 450px;
+  margin: auto;
+  margin-top: 40px;
+  border: 1px solid lightblue;
+
+}
+
+.heading {
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+
+.input-area  {
+  width: 100%;
+  padding: 15px;
+
+}
+
+.input-text {
+  padding : 10px;
+}
+.input-text input {
+  display: block;
+  width: auto;
+  padding: 3px;
+  width: 100%;
+  margin-bottom: 10px;
+  outline: none;
+  border: none;
+  border-bottom: 2px solid blue;
+}
+
+
+
+.submit-btn{
+  padding: 10px;
+  text-align: right;
+
+}
+.submit-btn button{
+  border: none;
+  background: lightgreen;
+  color: white;
+  text-align: center;
+  padding: 5px;
+  margin-top: 50px;
+  width: 100%;
+}

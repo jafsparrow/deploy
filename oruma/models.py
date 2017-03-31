@@ -42,6 +42,10 @@ class Dependend(models.Model):
     def __str__(self):
         return self.full_name
 
+
+
+
+
 class Application(models.Model):
     Recommender = models.ForeignKey(Recommender)
     Applicant = models.ForeignKey(Applicant)
@@ -57,7 +61,22 @@ class Application(models.Model):
     def __str__(self):
         return str(self.id)
 
+    # A profperty to chedk if editable.
+    # if status is 'new', 'review' return true.
+    def is_app_editable(self):
+        if self.status == 'N' or self.status == 'R':
+            return True
+        else:
+            return False
 
+
+# define a model to track notes associated with application.
+class ApplicationNotes(models.Model):
+    Application = models.ForeignKey(Application)
+    note = models.TextField(null=True)
+    created = models.DateField(auto_now=True)
+
+    
 class Documents(models.Model):
     application = models.ForeignKey(Application)
     description = models.CharField(max_length=100)

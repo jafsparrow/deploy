@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+
+
+
+
+{% block headcss %}
+<style>
+ .form-area {
+   padding: 10px;
+   padding-bottom: 80px;
+   border: lightgrey 1px solid;
+ }
+ table {
+   width: 100%;
+
+ }
+  td {
+    padding: 5px;
+
+  }
+
+  th {
+    padding: 5px;
+  }
+  input {
+    width: 100%;
+
+  }
+
+  textarea {
+     width: 100%;
+     height: 50px;
+  }
+
+.btn-area {
+  padding: 30px;
+}
+
+
+</style>
+{% endblock headcss %}
+
+
+
+{% block forms %}
+
+  <form class=""  method="post">
+    <input type="hidden" name="application_number" value="{{ application_number }}">
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2">
+        <table>
+
+        </table>
+      </div>
+
+    </div>
+
+  </form>
+
+
+<form class="" method="post">
+
+{% csrf_token %}
+<h4>Dependends Details</h4>
+<hr>
+<table>
+          <thead>
+            <th width="5%">S No:</th>
+            <th>Name</th>
+            <th>Relation</th>
+            <th width="10%">Age</th>
+            <th>Occupation</th>
+          </thead>
+          <tr>
+            <td>1</td>
+            <td><input class="form-control" id="id_dependend_name" maxlength="100" name="1_name" type="text"  /></td>
+            <td><input class="form-control" id="id_dependend_name" maxlength="100" name="1_relation" type="text"  /></td>
+            <td><input class="form-control" id="id_dependend_name" maxlength="100" name="1_age" type="text"  /></td>
+            <td><input class="form-control" id="id_dependend_name" maxlength="100" name="1_occupation" type="text"  /></td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td><input class="form-control" id="id_dependend_name" maxlength="100" name="2_name" type="text"  /></td>
+            <td><input class="form-control" id="id_dependend_name" maxlength="100" name="2_relation" type="text"  /></td>
+            <td><input class="form-control" id="id_dependend_name" maxlength="100" name="2_age" type="text"  /></td>
+            <td><input class="form-control" id="id_dependend_name" maxlength="100" name="2_occupation" type="text"  /></td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td><input class="form-control" id="id_dependend_name" maxlength="100" name="3_name" type="text"  /></td>
+            <td><input class="form-control" id="id_dependend_name" maxlength="100" name="3_relation" type="text"  /></td>
+            <td><input class="form-control" id="id_dependend_name" maxlength="100" name="3_age" type="text"  /></td>
+            <td><input class="form-control" id="id_dependend_name" maxlength="100" name="3_occupation" type="text"  /></td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td><input class="form-control" id="id_dependend_name" maxlength="100" name="4_name" type="text"  /></td>
+            <td><input class="form-control" id="id_dependend_name" maxlength="100" name="4_relation" type="text"  /></td>
+            <td><input class="form-control" id="id_dependend_name" maxlength="100" name="4_age" type="text"  /></td>
+            <td><input class="form-control" id="id_dependend_name" maxlength="100" name="4_occupation" type="text"  /></td>
+          </tr>
+
+</table>
+<div class="row" style="padding: 20px;">
+  <button type="submit" class="btn btn-primary pull-right" name="button">Save and Proceed</button>
+</div>
+</form>
+{% endblock forms %}

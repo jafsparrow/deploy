@@ -19,5 +19,6 @@ from oruma.views import landing_view
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$',landing_view,  name='homepage'),
-    url(r'^oruma/', include('oruma.urls'), name='oruma')
+    url(r'^oruma/', include('oruma.urls'), name='oruma'),
+    url('^accounts/', include('django.contrib.auth.urls')),
 ]
