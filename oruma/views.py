@@ -83,12 +83,13 @@ def application_step_1(request):
     if request.method == 'POST':
         applicant=ApplicantModelForm(request.POST or None, prefix='applicant')
         recommender=RecommenderModelForm(request.POST or None, prefix='recommender')
+        user_entered_app_number = request.POST['application_user_number']
         if recommender.is_valid() and applicant.is_valid():
             # save applicant
             recommender_obj=  recommender.save()
             applicant_obj= applicant.save()
             # Create New Application.
-            application = Application(Recommender=recommender_obj, Applicant=applicant_obj)
+            application = Application(Recommender=recommender_obj, Applicant=applicant_obj, application_number = user_entered_app_number)
             application.save()
 
             if application:
@@ -131,7 +132,7 @@ def application_step_2(request, application_number):
             for instance in instances:
                 instance.applicant = applicant
                 instance.save()
-            return HttpResponseRedirect(reverse('application_step_3', kwargs = {'application_number': application_number, 'stage_number':3}))
+            return HttpResponseRedirect(reverse('application_step_3', kwargs = {'application_number': application_number}))
     else:
         formset = DependendFormSet(queryset=query)
 
@@ -163,7 +164,7 @@ def application_step_3(request, application_number):
                 instance.save()
 
             app = application_form.save()
-            return HttpResponseRedirect(reverse('application_step_4', kwargs = {'application_number': application_number, 'stage_number':3}))
+            return HttpResponseRedirect(reverse('application_step_4', kwargs = {'application_number': application_number}))
     else:
         application_form = ApplicationModelForm(instance=application)
         formset = DetailFormSet(queryset=query)
@@ -180,7 +181,7 @@ def application_step_4(request, application_number):
                 'description': forms.TextInput(attrs={'placeholder': 'File Name', 'class': 'form-control'}),
                 #'Document': forms.FileField(attrs={'class': 'btn btn-default'}),
                 }
-    DocumentFormSet = modelformset_factory(Documents, fields=('description','document'), widgets=widget_dict, extra=1, max_num=3)#fields='__all__') #
+    DocumentFormSet = modelformset_factory(Documents, fields=('description','document'), widgets=widget_dict, extra=2, max_num=3)#fields='__all__') #
     if request.method == 'POST':
         formset = DocumentFormSet(request.POST, request.FILES)
         if formset.is_valid:
@@ -188,7 +189,7 @@ def application_step_4(request, application_number):
             for instance in instances:
                 instance.application=application
                 instance.save()
-            return HttpResponseRedirect(reverse('stage_3_view', kwargs = {'application_number': application_number, 'stage_number':3}))
+            return HttpResponseRedirect(reverse('application_step_5', kwargs = {'application_number': application_number}))
     else:
         print(query)
         formset = DocumentFormSet(queryset=query)

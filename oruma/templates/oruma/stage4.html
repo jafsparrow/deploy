@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 
 {% block forms %}
+<h4>Attach all the related documents. Eg - Scanned ID card, Ration Card etc...!</h4>
+
 <form class="" enctype="multipart/form-data" method="post">
   {% csrf_token %}
     {{ formset.management_form }}

@@ -79,18 +79,15 @@
               <th>Address</th>
               <td>{{ recommender.address }}</td>
             </tr>
-
           </table>
-
       </div>
-
     </div>
-
   </section>
 
 <section class="dependent">
   <hr>
-  <h4>Dependents<a href="#" class="btn btn-success pull-right">Edit</a></h4>
+  {% if dependends %}
+  <h4>Dependents<a href="{% url 'application_step_2' application.id %}" class="btn btn-success pull-right">Edit</a></h4>
   <hr>
   <div class="row">
     <div class="col-md-12">
@@ -117,10 +114,16 @@
         </table>
       </div>
   </div>
-  <hr>
+  {% else %}
+    <h4>Dependents</h4>
+    <h4 class="label label-danger">No Dependes details added<a href="{% url 'application_step_2' application.id %}" class="btn btn-success pull-right">Add Dependends</a></h4>
+    <hr>
+  {% endif %}
+
 </section>
 <section class="aids">
-  <h4>Financial Aid Details<a href="#" class="btn btn-success pull-right">Add or Edit</a></h4>
+  {% if details %}
+  <h4>Financial Aid Details<a href="{% url 'application_step_3' application.id %}" class="btn btn-success pull-right">Add or Edit</a></h4>
   <hr>
   <div class="row">
     <div class="col-md-12">
@@ -141,19 +144,28 @@
       </div>
   </div>
 
+  {% else %}
+    <h4>Finalcial Aid Details</h4>
+    <h4 class="label label-danger">No Aid Details added<a href="{% url 'application_step_2' application.id %}" class="btn btn-success pull-right">Add Details</a></h4>
+    <hr>
+  {% endif %}
+
 </section>
 
 <section class="docs">
-
-    <h4>Attached Documents<a href="#" class="btn btn-success pull-right">Manage Docs</a></h4>
+{% if doc %}
+    <h4>Attached Documents<a href="{% url 'application_step_4' application.id %}" class="btn btn-success pull-right">Manage Docs</a></h4>
     <hr>
+
+
+
     <div class="row">
       <div class="col-md-12">
           <table class="table table-bordered">
 
               <thead>
                 <th width="10%">#</th>
-                <th =>Document</th>
+                <th>Document</th>
               </thead>
               {% for doc in docs %}
               <tr>
@@ -162,7 +174,10 @@
               </tr>
 
               {% endfor %}
-
+{% else %}
+<h4>Attached Documents</h4><h4 class="label label-danger">No Documents attached<a href="{% url 'application_step_4' application.id %}" class="btn btn-success pull-right">Add Docs</a></h4>
+<hr>
+{% endif %}
 
 </section>
 

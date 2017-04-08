@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.contrib.auth.models import User
 # Create your models here.
 
 
@@ -56,7 +56,8 @@ class Application(models.Model):
     status = models.CharField(max_length = 10, choices =STATUS, default='N' )
     created = models.DateField(auto_now_add=True)
     updated = models.DateField(auto_now = True)
-    app_stage = models.IntegerField(default=1)
+    application_number = models.CharField(max_length=60)
+    
 
     def __str__(self):
         return str(self.id)
@@ -76,7 +77,7 @@ class ApplicationNotes(models.Model):
     note = models.TextField(null=True)
     created = models.DateField(auto_now=True)
 
-    
+
 class Documents(models.Model):
     application = models.ForeignKey(Application)
     description = models.CharField(max_length=100)

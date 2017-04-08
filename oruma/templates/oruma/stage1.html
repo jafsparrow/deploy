@@ -11,6 +11,7 @@
 
 <form class="" method="post">
   {% csrf_token %}
+
   <div class="row">
     <div class="col-md-6">
       <h4>Applicant Details</h4>
@@ -29,9 +30,17 @@
 
 
       </table>
-      <div class="row">
+      <div class="row col-sm-12 col-xs-12" style="margin-bottom: 40px;">
+        <div class="row">
+          <div class="col col-md-5">
+              <label for="application_user_number"><h4>Application Number</h4></label>
+          </div>
+          <div class="col col-md-7">
+              <input type="text" class="form-control" name="application_user_number" placeholder="Please enter a valid application number" required>
+          </div>
 
-            <input type="submit" class="btn btn-primary pull-right" name="" value="Save and Proceed">
+        </div>
+            <input type="submit" class="btn btn-primary pull-right"  name="" value="Save and Proceed">
 
       </div>
 

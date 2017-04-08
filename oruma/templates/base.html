@@ -11,6 +11,7 @@
     {% endblock headcss %}
   </head>
   <body>
+    {% include 'nav.html' %}
     <div class="container">
       {% block content %}
       {% endblock %}
@@ -25,5 +26,8 @@
 <script src="{% static 'oruma/js/boostrap.js' %}" charset="utf-8"></script>
 {% block extrajs %}
 {% endblock extrajs %}
+<footer>
+  Here si the footer
+</footer>
   </body>
 </html>
