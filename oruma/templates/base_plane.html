@@ -4,11 +4,8 @@
   <head>
     <meta charset="utf-8">
     <title>Oruma | {% block title %}Trust{% endblock %}</title>
-    <!---<link rel="stylesheet" href="{% static 'oruma/css/bootstrap.css' %}"> --->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {% block headcss %} {% endblock headcss %}
-    {% block headjs %} {% endblock headjs%}
+    {% block headimport %} {% endblock headimport %}
   </head>
   <body>
     {% include 'nav.html' %}
@@ -23,11 +20,6 @@
 <script src="{% static 'oruma/js/boostrap.js' %}" charset="utf-8"></script>
 !--->
 
-<script
-  src="https://code.jquery.com/jquery-3.2.1.min.js"
-  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-  crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" charset="utf-8"></script>
 {% block extrajs %}
 {% endblock extrajs %}
   </body>

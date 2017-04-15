@@ -1,9 +1,20 @@
 {% extends 'base.html' %}
+
+
 {% block content %}
 <section class="summary_title">
   <div class="row">
-    <h2>Application No: <b>{{ application.id }}</b></h2>
+    <h2>Application No: <b>{{ application.application_number }}</b></h2>
   </div>
+  {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-success">
+        {{ message }}
+    </div>
+
+    {% endfor %}
+
+  {% endif %}
   <div class="row">
           <table class="table table-bordered">
               <tr>
@@ -19,8 +30,7 @@
 <section class="userdetails">
   <div class="row">
     <div class="col-md-6">
-
-      <h4>Applicant Details <a href="{% url 'applicant_update_view' application.id %}" class="btn btn-success pull-right">Edit</a></h4>
+      <h4>Applicant Details <a href="{% url 'applicant_update_view' application.id %}?next={% url 'application_step_5' application.id %}" class="btn btn-success pull-right">Edit</a></h4>
       <hr>
         <table class="table table-bordered" >
           <tr>
@@ -58,7 +68,8 @@
       </table>
     </div>
     <div class="col-md-6">
-        <h4>Recommender Details<a href="#" class="btn btn-success pull-right">Edit</a></h4>
+        <h4>Recommender Details<a href="{% url 'recommender_update_view' application.id %}" class="btn btn-success pull-right">Edit</a></h4>
+
         <hr>
         <table class="table table-bordered">
 
@@ -87,7 +98,8 @@
 <section class="dependent">
   <hr>
   {% if dependends %}
-  <h4>Dependents<a href="{% url 'application_step_2' application.id %}" class="btn btn-success pull-right">Edit</a></h4>
+  <h4>Dependents<a href="{% url 'application_step_2' application.id %}?next={% url 'application_step_5' application.id %}" class="btn btn-success pull-right">Edit</a></h4>
+
   <hr>
   <div class="row">
     <div class="col-md-12">
@@ -116,7 +128,7 @@
   </div>
   {% else %}
     <h4>Dependents</h4>
-    <h4 class="label label-danger">No Dependes details added<a href="{% url 'application_step_2' application.id %}" class="btn btn-success pull-right">Add Dependends</a></h4>
+    <h4 class="label label-danger">No Dependes details added<a href="{% url 'application_step_2' application.id %}?next={% url 'application_step_5' application.id %}" class="btn btn-success pull-right">Add Dependends</a></h4>
     <hr>
   {% endif %}
 
@@ -153,7 +165,7 @@
 </section>
 
 <section class="docs">
-{% if doc %}
+{% if docs %}
     <h4>Attached Documents<a href="{% url 'application_step_4' application.id %}" class="btn btn-success pull-right">Manage Docs</a></h4>
     <hr>
 

@@ -37,14 +37,21 @@ def applicant_create_view(request):
     context = {'form': form }
     return render(request, 'oruma/applicantform.html', context)
 
+from django.contrib import messages
 def applicant_update_view(request, applicant_id):
+    redirect_to = request.GET['next']
+    print(redirect_to)
     applicant  = get_object_or_404(Applicant, id=applicant_id)
     if request.method == 'POST':
+
         # supply the class instance and the post data.
         form = ApplicantModelForm(request.POST, instance=applicant)
         if form.is_valid:
             form.save()
-            return HttpResponse('Applicant Details have been updated')
+            messages.success(request, 'Applicant details have been updated..!')
+        #return HttpResponse('create new recommender')
+        return HttpResponseRedirect(redirect_to)
+
     else:
         form = ApplicantModelForm(instance=applicant)
     context = {'form': form}
@@ -52,11 +59,14 @@ def applicant_update_view(request, applicant_id):
 
 
 def recommender_create_view(request):
+    redirect_to = request.GET['next']
     if request.method == 'POST':
         form = RecommenderModelForm(request.POST)
         if form.is_valid:
             form.save()
+            messages.success(request, 'Recommender details have been updated..!')
             return HttpResponse('create new recommender')
+        return HttpResponseRedirect(redirect_to)
     else:
         form = RecommenderModelForm()
     context = { 'form' : form }
@@ -110,6 +120,9 @@ def application_step_1(request):
 
 @login_required
 def application_step_2(request, application_number):
+    #check if there is next save the next from get request.
+    #redirect_to = request.GET.get(next, None)
+    #print(redirect_to)
     application = get_object_or_404(Application, id=application_number)
     applicant = application.Applicant
     #Dependend_form = DependendForm()
@@ -133,6 +146,11 @@ def application_step_2(request, application_number):
                 instance.applicant = applicant
                 instance.save()
             return HttpResponseRedirect(reverse('application_step_3', kwargs = {'application_number': application_number}))
+            #if redirect_to is None or redirect_to == '':
+
+            #else:
+                #print('running from blank')
+                #return HttpResponseRedirect(redirect_to)
     else:
         formset = DependendFormSet(queryset=query)
 
@@ -153,11 +171,12 @@ def application_step_3(request, application_number):
     if request.method == 'POST':
         application_form = ApplicationModelForm(request.POST)
         formset = DetailFormSet(request.POST)
-        if application_form.is_valid:
+        print(application_form)
+        if application_form.is_valid():
             print('app form is valid')
-        if formset.is_valid:
+        if formset.is_valid():
             print('formset is also valid')
-        if formset.is_valid and application_form.is_valid:
+        if formset.is_valid() and application_form.is_valid():
             instances = formset.save(commit=False)
             for instance in instances:
                 instance.application = application
@@ -169,7 +188,7 @@ def application_step_3(request, application_number):
         application_form = ApplicationModelForm(instance=application)
         formset = DetailFormSet(queryset=query)
 
-    context = { 'formset': formset , 'appform': application_form}
+    context = { 'formset': formset , 'appform': application_form,}
     return render(request, 'oruma/stage3.html', context)
 
 
@@ -184,14 +203,13 @@ def application_step_4(request, application_number):
     DocumentFormSet = modelformset_factory(Documents, fields=('description','document'), widgets=widget_dict, extra=2, max_num=3)#fields='__all__') #
     if request.method == 'POST':
         formset = DocumentFormSet(request.POST, request.FILES)
-        if formset.is_valid:
+        if formset.is_valid():
             instances = formset.save(commit=False)
             for instance in instances:
                 instance.application=application
                 instance.save()
             return HttpResponseRedirect(reverse('application_step_5', kwargs = {'application_number': application_number}))
     else:
-        print(query)
         formset = DocumentFormSet(queryset=query)
 
     context = { 'formset': formset }

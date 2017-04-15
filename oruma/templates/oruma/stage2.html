@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
 
 
-
+{% block content %}
+  <h4>Please fill out the dependends details..</h4>
+{% endblock %}
 
 {% block forms %}
 <form class="" method="post">
@@ -35,7 +37,7 @@
   {% endfor %}
 </table>
 <hr>
-  <button type="submit" name="button">Submit</button>
+  <button class="btn btn-primary pull-right"type="submit" name="button">Submit</button>
 </form>
 
 {% endblock forms %}

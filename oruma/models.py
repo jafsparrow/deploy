@@ -57,7 +57,8 @@ class Application(models.Model):
     created = models.DateField(auto_now_add=True)
     updated = models.DateField(auto_now = True)
     application_number = models.CharField(max_length=60)
-    
+
+
 
     def __str__(self):
         return str(self.id)
