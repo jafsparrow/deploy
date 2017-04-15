@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+#from django.contrib.auth.models import User
 # Create your models here.
 
 
@@ -25,8 +25,8 @@ class Applicant(models.Model):
     sex = models.CharField(max_length=2, choices=SEX)
     date_of_birth = models.DateField()
     occupation = models.CharField(max_length=50)
-    monthly_family_income = models.IntegerField()
-    no_earners = models.IntegerField()
+    monthly_family_income = models.IntegerField(default=1000)
+    no_earners = models.IntegerField(default=1)
     address = models.TextField()
 
     def __str__(self):
@@ -36,7 +36,7 @@ class Dependend(models.Model):
     applicant = models.ForeignKey(Applicant, on_delete= models.CASCADE)
     full_name = models.CharField(max_length=100)
     relation = models.CharField(max_length=50, null=True)
-    age = models.IntegerField()
+    age = models.IntegerField(default=10)
     occupation = models.CharField(max_length=50, null=True)
 
     def __str__(self):
@@ -61,7 +61,7 @@ class Application(models.Model):
 
 
     def __str__(self):
-        return str(self.id)
+        return self.application_number
 
     # A profperty to chedk if editable.
     # if status is 'new', 'review' return true.
