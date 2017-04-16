@@ -59,14 +59,14 @@ def applicant_update_view(request, applicant_id):
 
 
 def recommender_create_view(request):
-    redirect_to = request.GET['next']
+
     if request.method == 'POST':
         form = RecommenderModelForm(request.POST)
-        if form.is_valid:
+        if form.is_valid():
             form.save()
             messages.success(request, 'Recommender details have been updated..!')
             return HttpResponse('create new recommender')
-        return HttpResponseRedirect(redirect_to)
+
     else:
         form = RecommenderModelForm()
     context = { 'form' : form }
@@ -75,13 +75,16 @@ def recommender_create_view(request):
 
 
 def recommender_update_view(request, recommender_id):
+    redirect_to = request.GET['next']
     recommender = get_object_or_404(Recommender, id=recommender_id)
     if request.method == 'POST':
         form = RecommenderModelForm(request.POST, instance=recommender)
         if form.is_valid:
             form.save()
             #return HttpResponse('Updated the recommender')
-            return reverse(request.next)
+            #return reverse(request.next)
+            messages.success(request, 'Recommender details have been updated..!')
+        return HttpResponseRedirect(redirect_to)
     else:
         form = RecommenderModelForm(instance=recommender)
     context = { 'form' : form }
@@ -107,6 +110,7 @@ def application_step_1(request):
                 #return render(request, 'oruma/stage2.html', {'application': application.id })
         else:
             print("Form date is not valid and failed at form.isvalid method")
+            return HttpResponseRedirect(reverse('application_step_1'))
     # for GET render This.
     else:
         recommender=RecommenderModelForm(prefix='recommender')

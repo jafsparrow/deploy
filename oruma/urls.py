@@ -20,7 +20,7 @@ urlpatterns = [
     url(r'^applicant/create/$',applicant_create_view, name = 'applicant_create_view' ),
     url(r'^recommender/(?P<recommender_id>\d+)/edit$', recommender_update_view, name='recommender_update_view' ),
     url(r'^recommender/create/$', recommender_create_view, name = 'recommender_create_view' ),
-
+    url(r'^applications/$', applications, name='applications' ),
     # Steps
     url(r'^stage1/$', application_step_1, name='application_step_1'),
     url(r'^stage2/(?P<application_number>\d+)/$', application_step_2, name='application_step_2'),
