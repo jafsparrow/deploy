@@ -173,9 +173,10 @@ def application_step_3(request, application_number):
                 }
     DetailFormSet = modelformset_factory(Detail, exclude=('application',), widgets = widget_dict, extra=4, max_num=8)#fields='__all__') #
     if request.method == 'POST':
-        application_form = ApplicationModelForm(request.POST)
+        application_form = ApplicationModelForm(request.POST, instance=application)
         formset = DetailFormSet(request.POST)
         print(application_form)
+        print(application_form.is_valid())
         if application_form.is_valid():
             print('app form is valid')
         if formset.is_valid():
@@ -238,6 +239,10 @@ def application_step_5(request, application_number):
                 }
     return render(request, 'oruma/stage5.html', context)
 
+
+
+def submittion_view(request):
+    return render(request, 'oruma/submissionpage.html',{})
 
 # Create your views here.
 def form1view(request):

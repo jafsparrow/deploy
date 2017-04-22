@@ -4,7 +4,25 @@
 {% block content %}
 <section class="summary_title">
   <div class="row">
-    <h2>Application No: <b>{{ application.application_number }}</b></h2>
+    <h2>Application No: <b>{{ application.application_number }}</b>   </h2>
+  {% if applciation.status == 'New' %}
+    <button type="button" class="btn btn-sm btn-primary">Submt</button>
+  {% else %}
+      {% if user.is_staff %}
+        <div class="btn-group">
+          <button type="button" class="btn btn-sm btn-success">Accept</button>
+          <button type="button" class="btn btn-sm btn-warning">Review</button>
+          <button type="button" class="btn btn-sm btn-danger">Reject</button>
+        </div>
+        <a href="#">View Review Comments</a>
+      {% else %}
+          {% if applciation.status == 'Review' %}
+            <a href="#">View Review Comments</a>
+          {% endif %}
+
+      {% endif %}
+  {% endif %}
+
   </div>
   {% if messages %}
     {% for message in messages %}
@@ -187,8 +205,8 @@
 
               {% endfor %}
 {% else %}
-<h4>Attached Documents</h4><h4 class="label label-danger">No Documents attached<a href="{% url 'application_step_4' application.id %}" class="btn btn-success pull-right">Add Docs</a></h4>
-<hr>
+  <h4>Attached Documents</h4><h4 class="label label-danger">No Documents attached<a href="{% url 'application_step_4' application.id %}" class="btn btn-success pull-right">Add Docs</a></h4>
+  <hr>
 {% endif %}
 
 </section>

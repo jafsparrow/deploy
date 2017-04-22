@@ -1,0 +1,14 @@
+on the last page.
+
+have:
+button to submit.
+
+Once submitted. Change the status to submit.
+take off all the edit button optiions.
+
+Have a review button ,to show the review page.
+if the user is staff: have approve, reject and review buttons.
+
+if it is in review status,
+if staff: have approve or reject button on review page.
+other usrs, can add notes.

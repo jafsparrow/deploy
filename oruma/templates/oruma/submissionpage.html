@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block headcss %}
+  <link rel="stylesheet" href="{% static 'oruma/css/style.css' %}">
+{% endblock headcss %}
+
+
+{% block content %}
+  <div class="row">
+    <div class="col-md-3 border border-shadow">
+      <h5><b>AP/ML/123</b><span class="label label-sm label-default pull-right">Approved<span></h5>
+      <div>
+        <table class="table">
+          <tr>
+            <td>No: of Earners</td>
+            <td>2</td>
+          </tr>
+          <tr>
+            <td>No of Dependededs</td>
+            <td>5</td>
+          </tr>
+        </table>
+
+        <button type="button" class="btn btn-sm btn-primary active">Approve</button>
+        <button type="button" class="btn btn-sm btn-primary disabled">Submit</button>
+      </div>
+    </div>
+    <div class="col-md-9 border border-shadow">
+      <form class=""  method="post">
+        <div class="form-group">
+          <label>Payment mode:</label>
+          <label class="radio-inline">
+            <input type="radio" name="payment_mode">Check
+          </label>
+          <label class="radio-inline">
+            <input type="radio" name="payment_mode">Cash
+          </label>
+          <label class="radio-inline">
+            <input type="radio" name="payment_mode">DD
+          </label>
+        </div>
+        <div class="form-group">
+          <label>Payment Frequency:</label>
+          <label class="radio-inline">
+            <input type="radio" name="payment_frequency">Monthly
+          </label>
+          <label class="radio-inline">
+            <input type="radio" name="payment_frequency">Full Payment
+          </label>
+          <label class="radio-inline">
+            <input type="radio" name="payment_frequency">Part Payment
+          </label>
+        </div>
+
+
+        <div class="form-group">
+          <label for="comment">Add a new Note:</label>
+          <textarea class="form-control" rows="3" id="comment"></textarea>
+        </div>
+        <div style="text-align: right">
+              <button type="button" class="btn btn-primary">Save</button>
+        </div>
+      </form>
+
+      <div class="bs-callout bs-callout-default">
+        <h4>Unit 1 User Name <span class="label label-default pull-right">01/10/2016 11:30 am</span></h4>
+        This is a default callout.
+        There needs to be some chagnes to implement so taht i can approve it.This is a default callout.
+        There needs to be some chagnes to implement so taht i can approve itThis is a default callout.
+        There needs to be some chagnes to implement so taht i can approve it
+      </div>
+      <div class="bs-callout bs-callout-default">
+        <h4>Unit 1 User Name <span class="label label-default pull-right">01/10/2016 11:30 am</span></h4>
+        This is a default callout.
+      </div>
+
+
+    </div>
+
+  </div>
+
+{% endblock content %}

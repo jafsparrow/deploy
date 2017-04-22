@@ -58,6 +58,12 @@ class Application(models.Model):
     updated = models.DateField(auto_now = True)
     application_number = models.CharField(max_length=60)
 
+    pay_mode = (('CK','Check'), ('CS','Cash'),('DD', 'DD'))
+    pay_freq = (('MN', 'Monthly'), ('WK', 'Full Payment') , ('PP','Part Payment'))
+
+    payment_mode = models.CharField(max_length=50, choices = pay_mode, null=True)
+    payment_frequency = models.CharField(max_length=50, choices = pay_freq, null=True)
+
 
 
     def __str__(self):

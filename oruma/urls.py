@@ -9,7 +9,8 @@ from . views import ( form1view, stage_2_view, stage_3_view, application_summary
                         application_step_2,
                         application_step_3,
                         application_step_4,
-                        application_step_5
+                        application_step_5,
+                        submittion_view
                         )
 
 
@@ -26,7 +27,9 @@ urlpatterns = [
     url(r'^stage2/(?P<application_number>\d+)/$', application_step_2, name='application_step_2'),
     url(r'^stage3/(?P<application_number>\d+)/$', application_step_3, name='application_step_3'),
     url(r'^stage4/(?P<application_number>\d+)/$', application_step_4, name='application_step_4'),
-    url(r'^stage5/(?P<application_number>\d+)/$', application_step_5, name='application_step_5')
+    url(r'^stage5/(?P<application_number>\d+)/$', application_step_5, name='application_step_5'),
+    url(r'^submit/$', submittion_view, name='submittion_view'),
+
 
 
 ]
