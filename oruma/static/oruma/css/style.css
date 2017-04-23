@@ -65,3 +65,11 @@
 .border-shadow {
    box-shadow: 1px 1px 1px #888888;
 }
+
+
+
+/*Common to user for alignment*/
+.align-to-right {
+    text-align: right;
+
+}

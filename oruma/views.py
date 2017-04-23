@@ -241,7 +241,7 @@ def application_step_5(request, application_number):
 
 
 
-def submittion_view(request):
+def submittion_review(request, application_number):
     return render(request, 'oruma/submissionpage.html',{})
 
 # Create your views here.
@@ -431,3 +431,72 @@ def applications(request):
 
 def landing_view(request):
     return render(request, 'oruma/landingpage.html',{})
+
+
+
+
+def app_submit(request, application_number):
+    application = get_object_or_404(Application, id=application_number)
+    if application:
+        application.status = "Submitted"
+        application.save()
+        #redirect.
+        messages.success(request, 'Application has been Submitted for Review.!')
+        #return HttpResponse('create new recommender')
+        return HttpResponseRedirect(reverse('application_step_5', kwargs = {'application_number': application_number}))
+    else:
+        messages.success(request, 'Application failed to update.!')
+        return HttpResponseRedirect(reverse('application_step_5', kwargs = {'application_number': application_number}))
+
+def app_review(request, application_number):
+    application = get_object_or_404(Application, id=application_number)
+    if application:
+        if(application.status == "Submitted"):
+            application.status = "Review"
+            application.save()
+            #redirect.
+            messages.success(request, 'Application has been moved to Review, please view the review page.!')
+            #return HttpResponse('create new recommender')
+            return HttpResponseRedirect(reverse('application_step_5', kwargs = {'application_number': application_number}))
+        else:
+            messages.success(request, 'Application is not submitted yet or Approve or Rejected!')
+            return HttpResponseRedirect(reverse('application_step_5', kwargs = {'application_number': application_number}))
+    else:
+        messages.success(request, 'Application failed to update.!')
+        return HttpResponseRedirect(reverse('application_step_5', kwargs = {'application_number': application_number}))
+
+
+def app_approve(request, application_number):
+    application = get_object_or_404(Application, id=application_number)
+    if application:
+        if(application.status == "Submitted") or (application.status == "Review") :
+            application.status = "Approved"
+            application.save()
+            #redirect.
+            messages.success(request, 'Application has been approved...!')
+            #return HttpResponse('create new recommender')
+            return HttpResponseRedirect(reverse('application_step_5', kwargs = {'application_number': application_number}))
+        else:
+            messages.success(request, 'Application is not Submitted Yet!')
+            return HttpResponseRedirect(reverse('application_step_5', kwargs = {'application_number': application_number}))
+    else:
+        messages.success(request, 'Application failed to update.!')
+        return HttpResponseRedirect(reverse('application_step_5', kwargs = {'application_number': application_number}))
+
+
+def app_reject(request, application_number):
+    application = get_object_or_404(Application, id=application_number)
+    if application:
+        if(application.status == "Submitted") or (application.status == "Review") :
+            application.status = "Rejected"
+            application.save()
+            #redirect.
+            messages.success(request, 'Application has been Rejected...!')
+            #return HttpResponse('create new recommender')
+            return HttpResponseRedirect(reverse('application_step_5', kwargs = {'application_number': application_number}))
+        else:
+            messages.success(request, 'Application is not Submitted Yet!')
+            return HttpResponseRedirect(reverse('application_step_5', kwargs = {'application_number': application_number}))
+    else:
+        messages.success(request, 'Application failed to update.!')
+        return HttpResponseRedirect(reverse('application_step_5', kwargs = {'application_number': application_number}))

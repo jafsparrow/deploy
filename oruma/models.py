@@ -52,14 +52,14 @@ class Application(models.Model):
     estimated_amount = models.IntegerField(default = 0)
     self_amount = models.IntegerField(default=0)
     ouruma_expected = models.IntegerField(default=0)
-    STATUS = (('N','New'),('S','Submited'),('R', 'Review'),('A', 'Accepted'),('RJ','Rejected'))
+    STATUS = (('New','New'),('Submitted','Submitted'),('Review', 'Review'),('Approved', 'Approved'),('Rejected','Rejected'))
     status = models.CharField(max_length = 10, choices =STATUS, default='N' )
     created = models.DateField(auto_now_add=True)
     updated = models.DateField(auto_now = True)
     application_number = models.CharField(max_length=60)
 
-    pay_mode = (('CK','Check'), ('CS','Cash'),('DD', 'DD'))
-    pay_freq = (('MN', 'Monthly'), ('WK', 'Full Payment') , ('PP','Part Payment'))
+    pay_mode = (('Check','Check'), ('Cash','Cash'),('DD', 'DD'))
+    pay_freq = (('Monthly', 'Monthly'), ('Full', 'Full') , ('Part','Part'))
 
     payment_mode = models.CharField(max_length=50, choices = pay_mode, null=True)
     payment_frequency = models.CharField(max_length=50, choices = pay_freq, null=True)

@@ -47,6 +47,13 @@ class ApplicationModelForm(forms.ModelForm):
     estimated_amount = forms.IntegerField(widget = forms.NumberInput(attrs={'placeholder': 'Enter Estimated Amount', 'class': 'form-control'}),label='Estimated Amount')
     self_amount = forms.IntegerField(widget = forms.NumberInput(attrs={'placeholder': 'Enter Self Contributing Amount', 'class': 'form-control'}),label='Self Contribution')
     ouruma_expected = forms.IntegerField(widget = forms.NumberInput(attrs={'placeholder': 'Enter Oruma Aid amount', 'class': 'form-control'}),label='Oruma Expected')
+    pay_mode = (('Check','Check'), ('Cash','Cash'),('DD', 'DD'))
+    pay_freq = (('Monthly', 'Monthly'), ('Full', 'Full') , ('Part','Part'))
+    payment_mode = forms.ChoiceField( widget=forms.Select(attrs={'class': 'form-control'}), choices=pay_mode, required=False)
+    payment_frequency = forms.ChoiceField( widget=forms.Select(attrs={'class': 'form-control'}), choices=pay_freq, required=False)
+
+    pay_mode = (('Check','Check'), ('Cash','Cash'),('DD', 'DD'))
+    pay_freq = (('Monthly', 'Monthly'), ('Full', 'Full') , ('Part','Part'))
 
     class Meta:
         model =  Application

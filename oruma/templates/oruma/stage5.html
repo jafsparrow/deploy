@@ -4,24 +4,46 @@
 {% block content %}
 <section class="summary_title">
   <div class="row">
-    <h2>Application No: <b>{{ application.application_number }}</b>   </h2>
-  {% if applciation.status == 'New' %}
-    <button type="button" class="btn btn-sm btn-primary">Submt</button>
-  {% else %}
-      {% if user.is_staff %}
-        <div class="btn-group">
-          <button type="button" class="btn btn-sm btn-success">Accept</button>
-          <button type="button" class="btn btn-sm btn-warning">Review</button>
-          <button type="button" class="btn btn-sm btn-danger">Reject</button>
-        </div>
-        <a href="#">View Review Comments</a>
-      {% else %}
-          {% if applciation.status == 'Review' %}
-            <a href="#">View Review Comments</a>
-          {% endif %}
 
-      {% endif %}
-  {% endif %}
+<span class="label label-sm label-default">{{ application.status }}</span>
+
+      <h2>Application No: <b>{{ application.application_number }}</b>
+
+        <div style="float:right" >
+          {% if application.status == 'New' %}
+
+            <a href="{% url 'app_submit' application.id %}" class="btn btn-sm btn-primary">Submit</a>
+          {% else %}
+              {% if application.status == 'Review' %}
+                <a href="{% url 'submittion_review' application.id %}">View Review Comments</a>
+              {% elif application.status == 'Submitted' %}
+                  {% if user.is_staff %}
+                    <div class="btn-group">
+
+                      <a href="{% url 'app_approve' application.id %}" class="btn btn-sm btn-success">Approve</a>
+
+                      <a href="{% url 'app_review' application.id %}" class="btn btn-sm btn-warning">Send for Review</a>
+
+                      <a href="{% url 'app_reject' application.id %}" class="btn btn-sm btn-danger">Reject</a>
+                    </div>
+                  {% endif %}
+              {% endif %}
+          {% endif %}
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+        </h2>
+
 
   </div>
   {% if messages %}
