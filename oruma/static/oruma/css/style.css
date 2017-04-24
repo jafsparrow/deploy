@@ -73,3 +73,17 @@
     text-align: right;
 
 }
+
+
+
+/*mid window. for login and ther activities.*/
+.mid-window {
+  width: 600px;
+  max-height: 600px;
+  margin: 30px auto 30px auto;
+  padding: 30px 10px;
+}
+
+.submission-window {
+  padding: 20px 10px;
+}

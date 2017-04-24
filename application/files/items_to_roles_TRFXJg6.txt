@@ -1,7 +1,0 @@
-SQL query optimization.
-
-Query Optimization, using Performance Monitor, SQL Profiler and other related monitoring and troubleshooting tools. 
-
-Play!/Tomcat/WebSphere/Glassfish application server environment under UNIX.
-
-This position works collaboratively to analyze, design, code and debug complex software programs.

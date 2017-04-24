@@ -5,6 +5,7 @@ from django.forms import formset_factory
 from django.forms import modelformset_factory
 import datetime
 from django.urls import reverse
+from django.contrib import messages
 from django import forms
 from django.contrib.auth.decorators import login_required
 
@@ -242,7 +243,30 @@ def application_step_5(request, application_number):
 
 
 def submittion_review(request, application_number):
-    return render(request, 'oruma/submissionpage.html',{})
+    application = get_object_or_404(Application, id=application_number)
+    if request.method == 'POST':
+        appForm = ApplicationModelForm(request.POST, instance = application)
+        print(appForm)
+
+        if appForm.is_valid():
+            appForm.status = "Submitted"
+            appForm.save()
+            messages.success(request, 'Application has been Submitted..!')
+            HttpResponseRedirect(reverse('application_step_5', kwargs = {'application_number': application_number}))
+
+        else:
+            messages.warning(request, 'Something went wrong, please try again...!')
+            return HttpResponseRedirect(reverse('submittion_review', kwargs = {'application_number': application_number}))
+    else:
+        appForm = ApplicationModelForm(instance = application)
+    return render(request, 'oruma/submission.html',{'appform':appForm})
+
+
+
+
+def review_view():
+    return render(request, 'oruma/review.html',{})
+
 
 # Create your views here.
 def form1view(request):

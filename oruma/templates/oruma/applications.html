@@ -15,8 +15,7 @@
           <thead>
             <th width="5%">No:</th>
             <th>Application No:</th>
-            <th>Estimated Amount</th>
-            <th>Expected Amount </th>
+            <th>Oruma Aid Needed:</th>
             <th>Status</th>
           </thead>
           <tbody>
@@ -24,7 +23,6 @@
                 <tr>
                   <td>{{ forloop.counter }}</td>
                   <td><a href="{% url 'application_step_5' application.id %}">{{ application.application_number }}</a></td>
-                  <td>{{ application.estimated_amount }}</td>
                   <td>{{ application.ouruma_expected }}</td>
                   <td>{{ application.get_status_display }}</td>
                 </tr>

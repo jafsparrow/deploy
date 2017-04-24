@@ -4,45 +4,35 @@
 {% block content %}
 <section class="summary_title">
   <div class="row">
+    <div class="col col-md-5">
+      <h2 style="display: inline">Application No: <b>{{ application.application_number }}</b></h2>
+    </div>
+    <div class="col col-md-2">
+      <div class="label label-sm label-default pull-right">{{ application.status }}</div>
+    </div>
+    <div class="col col-md-5">
+        {% if application.status == 'New' %}
 
-<span class="label label-sm label-default">{{ application.status }}</span>
+          <a href="{% url 'app_submit' application.id %}" class="btn btn-sm btn-primary">Submit</a>
+        {% else %}
+            {% if application.status == 'Review' %}
+              <a href="{% url 'submittion_review' application.id %}">View Review Comments</a>
+            {% elif application.status == 'Submitted' %}
+                {% if user.is_staff %}
+                  <div class="btn-group">
 
-      <h2>Application No: <b>{{ application.application_number }}</b>
+                    <a href="{% url 'app_approve' application.id %}" class="btn btn-sm btn-success">Approve</a>
 
-        <div style="float:right" >
-          {% if application.status == 'New' %}
+                    <a href="{% url 'app_review' application.id %}" class="btn btn-sm btn-warning">Send for Review</a>
 
-            <a href="{% url 'app_submit' application.id %}" class="btn btn-sm btn-primary">Submit</a>
-          {% else %}
-              {% if application.status == 'Review' %}
-                <a href="{% url 'submittion_review' application.id %}">View Review Comments</a>
-              {% elif application.status == 'Submitted' %}
-                  {% if user.is_staff %}
-                    <div class="btn-group">
-
-                      <a href="{% url 'app_approve' application.id %}" class="btn btn-sm btn-success">Approve</a>
-
-                      <a href="{% url 'app_review' application.id %}" class="btn btn-sm btn-warning">Send for Review</a>
-
-                      <a href="{% url 'app_reject' application.id %}" class="btn btn-sm btn-danger">Reject</a>
-                    </div>
-                  {% endif %}
-              {% endif %}
-          {% endif %}
-        </div>
-
-
+                    <a href="{% url 'app_reject' application.id %}" class="btn btn-sm btn-danger">Reject</a>
+                  </div>
+                {% endif %}
+            {% endif %}
+        {% endif %}
 
 
-
-
-
-
-
-
-
-
-        </h2>
+    </div>
 
 
   </div>

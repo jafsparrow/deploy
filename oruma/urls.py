@@ -15,7 +15,8 @@ from . views import ( form1view, stage_2_view, stage_3_view, application_summary
                         app_review,
                         app_review,
                         app_approve,
-                        app_reject
+                        app_reject,
+                        review_view
                         )
 
 
@@ -33,7 +34,8 @@ urlpatterns = [
     url(r'^stage3/(?P<application_number>\d+)/$', application_step_3, name='application_step_3'),
     url(r'^stage4/(?P<application_number>\d+)/$', application_step_4, name='application_step_4'),
     url(r'^stage5/(?P<application_number>\d+)/$', application_step_5, name='application_step_5'),
-    url(r'^review/(?P<application_number>\d+)/$', submittion_review, name='submittion_review'),
+    url(r'^review/(?P<application_number>\d+)/$', review_view, name='review_view'),
+    url(r'^submission/(?P<application_number>\d+)/$', submittion_review, name='submittion_review'),
 
 
     # URLs for App submissio process
