@@ -36,7 +36,7 @@ class Dependend(models.Model):
     applicant = models.ForeignKey(Applicant, on_delete= models.CASCADE)
     full_name = models.CharField(max_length=100)
     relation = models.CharField(max_length=50, null=True)
-    age = models.IntegerField(default=10)
+    age = models.IntegerField(null=True)
     occupation = models.CharField(max_length=50, null=True)
 
     def __str__(self):
@@ -62,11 +62,11 @@ class Application(models.Model):
     pay_freq = (('Monthly', 'Monthly'), ('Full', 'Full') , ('Part','Part'))
 
     payment_mode = models.CharField(max_length=50, choices = pay_mode, null=True)
-    #payment_details
+    payment_details = models.CharField(max_length = 100, null=True )
     payment_frequency = models.CharField(max_length=50, choices = pay_freq, null=True)
-    #extra_notes
-    #enquiry_team
-    #enquiry_notes
+    extra_notes = models.CharField(max_length = 100, null=True )
+    enquiry_team = models.CharField(max_length = 100, null=True )
+    enquiry_notes =  models.TextField(null=True)
 
 
 

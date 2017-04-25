@@ -51,6 +51,10 @@ class ApplicationModelForm(forms.ModelForm):
     pay_freq = (('Monthly', 'Monthly'), ('Full', 'Full') , ('Part','Part'))
     payment_mode = forms.ChoiceField( widget=forms.Select(attrs={'class': 'form-control'}), choices=pay_mode, required=False)
     payment_frequency = forms.ChoiceField( widget=forms.Select(attrs={'class': 'form-control'}), choices=pay_freq, required=False)
+    payment_details = forms.CharField(widget = forms.TextInput(attrs={'placeholder': 'Payment Details', 'class': 'form-control'}),max_length=100, label='Payment Details', required=False)
+    extra_notes = forms.CharField(widget = forms.Textarea(attrs={'placeholder': 'Add Extra payment Notes', 'class': 'form-control', 'rows':'3'}), max_length=300, label='Address', required=False)
+    enquiry_team = forms.CharField(widget = forms.TextInput(attrs={'placeholder': 'Enquiry team Names', 'class': 'form-control'}),max_length=100, label='Enquiry Team Names', required=False)
+    enquiry_notes = forms.CharField(widget = forms.Textarea(attrs={'placeholder': 'Enquiry Notes', 'class': 'form-control', 'rows':'3'}), max_length=300, label='Address', required=False)
 
     pay_mode = (('Check','Check'), ('Cash','Cash'),('DD', 'DD'))
     pay_freq = (('Monthly', 'Monthly'), ('Full', 'Full') , ('Part','Part'))

@@ -29,7 +29,7 @@
           <a href="{% url 'submittion_review' application.id %}" class="btn btn-sm btn-primary">Submit</a>
         {% else %}
             {% if application.status == 'Review' %}
-              <a href="{% url 'submittion_review' application.id %}">View Review Comments</a>
+              <a href="{% url 'review_view' application.id %}">View Review Comments</a>
             {% elif application.status == 'Submitted' %}
                 {% if user.is_staff %}
                   <div class="btn-group">
@@ -73,7 +73,12 @@
 <section class="userdetails">
   <div class="row">
     <div class="col-md-6">
-      <h4>Applicant Details <a href="{% url 'applicant_update_view' applicant.id %}?next={% url 'application_step_5' application.id %}" class="btn btn-success pull-right">Edit</a></h4>
+      <h4>Applicant Details
+
+        {% if request.user.is_staff or application.status == 'New' or application.status == 'Review' %}
+        <a href="{% url 'applicant_update_view' applicant.id %}?next={% url 'application_step_5' application.id %}" class="btn btn-success pull-right">Edit</a>
+        {% endif %}
+      </h4>
       <hr>
         <table class="table table-bordered" >
           <tr>
@@ -111,7 +116,12 @@
       </table>
     </div>
     <div class="col-md-6">
-        <h4>Recommender Details<a href="{% url 'recommender_update_view' recommender.id %}?next={% url 'application_step_5' application.id %}" class="btn btn-success pull-right">Edit</a></h4>
+        <h4>Recommender Details
+          {% if request.user.is_staff or application.status == 'New' or application.status == 'Review' %}
+          <a href="{% url 'recommender_update_view' recommender.id %}?next={% url 'application_step_5' application.id %}" class="btn btn-success pull-right">Edit</a>
+          {% endif %}
+
+        </h4>
 
         <hr>
         <table class="table table-bordered">
@@ -141,7 +151,11 @@
 <section class="dependent">
   <hr>
   {% if dependends %}
-  <h4>Dependents<a href="{% url 'application_step_2' application.id %}?next={% url 'application_step_5' application.id %}" class="btn btn-success pull-right">Edit</a></h4>
+  <h4>Dependents
+    {% if request.user.is_staff or application.status == 'New' or application.status == 'Review' %}
+    <a href="{% url 'application_step_2' application.id %}?next={% url 'application_step_5' application.id %}" class="btn btn-success pull-right">Edit</a>
+      {% endif %}
+  </h4>
 
   <hr>
   <div class="row">
@@ -171,14 +185,24 @@
   </div>
   {% else %}
     <h4>Dependents</h4>
-    <h4 class="label label-danger">No Dependes details added<a href="{% url 'application_step_2' application.id %}?next={% url 'application_step_5' application.id %}" class="btn btn-success pull-right">Add Dependends</a></h4>
+    <h4 class="label label-danger">No Dependes details added
+      {% if request.user.is_staff or application.status == 'New' or application.status == 'Review' %}
+      <a href="{% url 'application_step_2' application.id %}?next={% url 'application_step_5' application.id %}" class="btn btn-success pull-right">Add Dependends</a>
+
+    {% endif %}
+    </h4>
     <hr>
   {% endif %}
 
 </section>
 <section class="aids">
   {% if details %}
-  <h4>Financial Aid Details<a href="{% url 'application_step_3' application.id %}" class="btn btn-success pull-right">Add or Edit</a></h4>
+  <h4>Financial Aid Details
+    {% if request.user.is_staff or application.status == 'New' or application.status == 'Review' %}
+    <a href="{% url 'application_step_3' application.id %}" class="btn btn-success pull-right">Add or Edit</a>
+      {% endif %}
+
+  </h4>
   <hr>
   <div class="row">
     <div class="col-md-12">
@@ -201,7 +225,13 @@
 
   {% else %}
     <h4>Finalcial Aid Details</h4>
-    <h4 class="label label-danger">No Aid Details added<a href="{% url 'application_step_2' application.id %}" class="btn btn-success pull-right">Add Details</a></h4>
+    <h4 class="label label-danger">No Aid Details added
+    {% if request.user.is_staff or application.status == 'New' or application.status == 'Review' %}
+
+      <a href="{% url 'application_step_2' application.id %}" class="btn btn-success pull-right">Add Details</a>
+    {% endif %}
+
+    </h4>
     <hr>
   {% endif %}
 
@@ -209,11 +239,13 @@
 
 <section class="docs">
 {% if docs %}
-    <h4>Attached Documents<a href="{% url 'application_step_4' application.id %}" class="btn btn-success pull-right">Manage Docs</a></h4>
+    <h4>Attached Documents
+
+      {% if request.user.is_staff or application.status == 'New' or application.status == 'Review' %}
+      <a href="{% url 'application_step_4' application.id %}" class="btn btn-success pull-right">Manage Docs</a>
+      {% endif %}
+    </h4>
     <hr>
-
-
-
     <div class="row">
       <div class="col-md-12">
           <table class="table table-bordered">
@@ -230,17 +262,17 @@
 
               {% endfor %}
 {% else %}
-  <h4>Attached Documents</h4><h4 class="label label-danger">No Documents attached<a href="{% url 'application_step_4' application.id %}" class="btn btn-success pull-right">Add Docs</a></h4>
+  <h4>Attached Documents</h4><h4 class="label label-danger">No Documents attached
+    {% if request.user.is_staff or application.status == 'New' or application.status == 'Review' %}
+    <a href="{% url 'application_step_4' application.id %}" class="btn btn-success pull-right">Add Docs</a>
+    {% endif %}
+
+  </h4>
   <hr>
 {% endif %}
 
 </section>
-
-
 {% endblock %}
 {% block forms %}
-
-
-
 
 {% endblock forms %}

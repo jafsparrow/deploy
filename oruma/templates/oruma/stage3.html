@@ -13,7 +13,7 @@
 {% endblock content %}
 
 {% block forms %}
-<form class="" method="post">
+<form  method="post">
   {% csrf_token %}
   {{ formset.management_form }}
 
@@ -78,17 +78,36 @@
   <div class="col-md-6">
     <h5>Payment Mode:</h5>
     {{ appform.payment_mode }}
+
   </div>
+
+
   <div class="col-md-6">
-    <h5>Payment Freuquency:</h5>
-    {{ appform.payment_frequency }}
+    <h5>Payment details:</h5>
+    {{ appform.payment_details }}
   </div>
 
 
 </div>
 
+<div class="row">
+  <div class="col-md-6">
+    <h5>Payment Freuquency:</h5>
+    {{ appform.payment_frequency }}
+  </div>
+  <div class="col-md-6">
+    <h5>Other details:</h5>
+    {{ appform.extra_notes }}
+
+  </div>
+
+
+</div>
+
+
+
 <hr>
-  <button type="submit" class="btn btn-primary pull-right" name="button">Submit</button>
+  <button type="submit" class="btn btn-block btn-primary" name="button">Submit</button>
 </form>
 
 {% endblock forms %}
