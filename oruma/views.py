@@ -241,7 +241,7 @@ def application_step_5(request, application_number):
     return render(request, 'oruma/stage5.html', context)
 
 
-
+@login_required
 def submittion_review(request, application_number):
     application = get_object_or_404(Application, id=application_number)
     if request.method == 'POST':
@@ -252,7 +252,7 @@ def submittion_review(request, application_number):
             appForm.status = "Submitted"
             appForm.save()
             messages.success(request, 'Application has been Submitted..!')
-            HttpResponseRedirect(reverse('application_step_5', kwargs = {'application_number': application_number}))
+            return HttpResponseRedirect(reverse('application_step_5', kwargs = {'application_number': application_number}))
 
         else:
             messages.warning(request, 'Something went wrong, please try again...!')

@@ -62,7 +62,12 @@ class Application(models.Model):
     pay_freq = (('Monthly', 'Monthly'), ('Full', 'Full') , ('Part','Part'))
 
     payment_mode = models.CharField(max_length=50, choices = pay_mode, null=True)
+    #payment_details
     payment_frequency = models.CharField(max_length=50, choices = pay_freq, null=True)
+    #extra_notes
+    #enquiry_team
+    #enquiry_notes
+
 
 
 

@@ -3,8 +3,21 @@
 
 {% block content %}
 <section class="summary_title">
+
+
+{% if application.status == 'New' %}
+
+  <div class="progress">
+    <div class="progress-bar progress-bar-striped active" role="progressbar"
+    aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:90%">
+      90%
+    </div>
+  </div>
+
+{% endif %}
+
   <div class="row">
-    <div class="col col-md-5">
+      <div class="col col-md-5">
       <h2 style="display: inline">Application No: <b>{{ application.application_number }}</b></h2>
     </div>
     <div class="col col-md-2">
@@ -13,7 +26,7 @@
     <div class="col col-md-5">
         {% if application.status == 'New' %}
 
-          <a href="{% url 'app_submit' application.id %}" class="btn btn-sm btn-primary">Submit</a>
+          <a href="{% url 'submittion_review' application.id %}" class="btn btn-sm btn-primary">Submit</a>
         {% else %}
             {% if application.status == 'Review' %}
               <a href="{% url 'submittion_review' application.id %}">View Review Comments</a>
