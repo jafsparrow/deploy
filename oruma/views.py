@@ -270,7 +270,7 @@ def submittion_review(request, application_number):
 
 
 
-def review_view():
+def review_view(request, application_number):
     return render(request, 'oruma/review.html',{})
 
 

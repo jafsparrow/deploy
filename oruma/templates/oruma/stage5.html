@@ -2,6 +2,15 @@
 
 
 {% block content %}
+<section>
+  <div class="" style="text-align: center; margin: 20px auto;">
+    <h3>Application For Financial Aid</h3>
+    <h4>Run by Oruma Charitable Trust</h4>
+    <h5><b>(Reg No: 794/2009)</b></h5>
+    <h5>Oruma House, No: 18/31, Palliyarasan Street, Opp Kilpauk Water Tank, Anna Nagar East, Chennai - 600102</h5>
+    <h5>Ph: 044-26444015,  9884 944 015</h5>
+  </div>
+</section>
 <section class="summary_title">
 
 
@@ -13,19 +22,11 @@
       90%
     </div>
   </div>
-
 {% endif %}
 
-  <div class="row">
-      <div class="col col-md-5">
-      <h2 style="display: inline">Application No: <b>{{ application.application_number }}</b></h2>
-    </div>
-    <div class="col col-md-2">
-      <div class="label label-sm label-default pull-right">{{ application.status }}</div>
-    </div>
-    <div class="col col-md-5">
+  <div class="row" style="text-align: right; margin-bottom: 10px;">
+    <div class="col-md-6 col-md-offset-6">
         {% if application.status == 'New' %}
-
           <a href="{% url 'submittion_review' application.id %}" class="btn btn-sm btn-primary">Submit</a>
         {% else %}
             {% if application.status == 'Review' %}
@@ -43,31 +44,48 @@
                 {% endif %}
             {% endif %}
         {% endif %}
-
-
     </div>
 
 
   </div>
   {% if messages %}
     {% for message in messages %}
-    <div class="alert alert-success">
+    <div class="alert alert-success alert-dismissable">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
         {{ message }}
     </div>
-
     {% endfor %}
-
   {% endif %}
+<hr>
+
   <div class="row">
-          <table class="table table-bordered">
-              <tr>
-                <td><b>Estimated Amount: </b>{{ application.estimated_amount }}</td>
-                <td><b>Self Contribution: </b>{{ application.self_amount }}</td>
-                <td><b>Amount requested from Oruma: </b>{{ application.ouruma_expected }}</td>
-                <td><b>Application Date: </b>{{ application.created |date }}</td>
-              </tr>
-          </table>
+    <div class="col-md-4 border" style="padding: 5px;">
+      <b>Application No: </b>{{ application.application_number }}
+    </div>
+    <div class="col-md-4 border" style="padding: 5px;">
+      <b>Application Status: </b>{{ application.status }}
+    </div>
+    <div class="col-md-4 border" style="padding: 5px;">
+      <b>Application Date: </b>{{ application.created |date }}
+    </div>
+</div>
+<div class="row">
+
+    <div class="col-md-4 border" style="padding: 5px;">
+      <b>Oruma approved aid: </b>{{ application.ouruma_expected }} &#8377
+    </div>
+
+    <div class="col-md-4 border" style="padding: 5px;">
+      <b>Payment Mode: </b>{{ application.payment_mode }}
+    </div>
+    <div class="col-md-4 border" style="padding: 5px;">
+      <b>Payment Frquency: </b>{{ application.payment_frequency  }}
+    </div>
+
+
   </div>
+<hr>
+
 </section>
 
 <section class="userdetails">
@@ -271,6 +289,21 @@
   <hr>
 {% endif %}
 
+</section>
+<section style="margin-bottom:50px">
+  <h4>Enquiry Details</h4>
+  <hr>
+  <div class="row ">
+    <div class="col-md-6 border">
+      <h5><b>Enquiry Team</b></h5>
+      {{ application.enquiry_team }}
+    </div>
+    <div class="col-md-6 border">
+      <h5><b>Enquiry Notes</b></h5>
+      {{ application.enquiry_notes}}
+    </div>
+
+  </div>
 </section>
 {% endblock %}
 {% block forms %}
