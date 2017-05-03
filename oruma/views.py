@@ -175,20 +175,23 @@ def application_step_3(request, application_number):
     DetailFormSet = modelformset_factory(Detail, exclude=('application',), widgets = widget_dict, extra=4, max_num=8)#fields='__all__') #
     if request.method == 'POST':
         application_form = ApplicationModelForm(request.POST, instance=application)
+        application_form.save()
         formset = DetailFormSet(request.POST)
+        ''''
         print(application_form)
         print(application_form.is_valid())
         if application_form.is_valid():
             print('app form is valid')
         if formset.is_valid():
             print('formset is also valid')
+        '''
         if formset.is_valid() and application_form.is_valid():
             instances = formset.save(commit=False)
             for instance in instances:
                 instance.application = application
                 instance.save()
 
-            app = application_form.save()
+
             return HttpResponseRedirect(reverse('application_step_4', kwargs = {'application_number': application_number}))
     else:
         application_form = ApplicationModelForm(instance=application)
@@ -246,11 +249,14 @@ def submittion_review(request, application_number):
     application = get_object_or_404(Application, id=application_number)
     if request.method == 'POST':
         appForm = ApplicationModelForm(request.POST, instance = application)
-        print(appForm)
+        #print(appForm)
 
         if appForm.is_valid():
-            appForm.status = "Submitted"
-            appForm.save()
+            app = appForm.save(commit=False)
+            app.status = 'Submitted'
+            app.save()
+            #appForm.status = 'Submitted'
+            #appForm.save()
             messages.success(request, 'Application has been Submitted..!')
             return HttpResponseRedirect(reverse('application_step_5', kwargs = {'application_number': application_number}))
 
