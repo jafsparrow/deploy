@@ -58,7 +58,7 @@
       {% for note in notes%}
 
         <div class="bs-callout bs-callout-default">
-          <h4>{{ request.user }} <span class="label label-default pull-right" style="font-size: 10px;">{{ note.created_date |date }} </span></h4>
+          <h4>{{ note.created_by }} <span class="label label-default pull-right" style="font-size: 10px;">{{ note.created_date |date }} </span></h4>
             {{ note.note }}
         </div>
 
