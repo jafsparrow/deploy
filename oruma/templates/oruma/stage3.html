@@ -35,7 +35,20 @@
       {{ form.id }}
     <tr>
       <td>{{ forloop.counter }}</td>
-      <td>{{ form.aid_type }} </td>
+
+        {% if form.initial.aid_type %}
+
+        <div style="display: none">
+          <select class="form-control" id="{{ form.aid_type.auto_id }}" maxlength="200" name="{{ form.aid_type.html_name }}">
+            <option value="{{ form.initial.aid_type }}" selected="selected">{{ form.initial.aid_type }}</option>
+          </select>
+        </div>
+        <td>{{ form.initial.aid_type }}</td>
+
+      {% else %}
+        <td>{{ form.aid_type }} </td>
+      {% endif %}
+
       <td>{{ form.add_information }}</td>
     </tr>
 

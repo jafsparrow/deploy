@@ -38,9 +38,15 @@ class DependendModelFrom(forms.ModelForm):
         fields = '__all__'
 
 class DetailModelFrom(forms.ModelForm):
+
+    aid_classes = (('Monthly', 'Monthly'), ('Full', 'Full') , ('Part','Part'))
+    aid_type = forms.ChoiceField( widget=forms.Select(attrs={'class': 'form-control'}), choices=aid_classes, required=False)
+    add_information = forms.CharField(widget = forms.Textarea(attrs={'placeholder': 'Reivew Notes', 'class': 'form-control', 'rows':'3'}), max_length=300, label='Add a new Note:', required=False)
+
+
     class Meta:
         model = Detail
-        fields = '__all__'
+        fields = ['aid_type','add_information']
 
 class ApplicationModelForm(forms.ModelForm):
 

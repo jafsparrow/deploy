@@ -1,7 +1,17 @@
 {% extends 'base.html' %}
 
 
+    {% block headcss %}
+<style media="screen">
+  .container{
 
+
+  }
+
+
+</style>
+
+     {% endblock headcss %}
 
 {% block content %}
 <!-- Page Content -->
@@ -9,8 +19,13 @@
 
         <!-- Jumbotron Header -->
         <header class="jumbotron hero-spacer">
-            <h1>Ourma Zakat application</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, ipsam, eligendi, in quo sunt possimus non incidunt odit vero aliquid similique quaerat nam nobis illo aspernatur vitae fugiat numquam repellat.</p>
+            <h2>Ourma Charitable Trust</h2>
+            <p><blockquote >
+              Charity can be the outward expression of faith and hope
+              </blockquote>
+              Work towards self discipline, inclusive efforts to nurture social well being and
+            bridging the kind hearted to the needy one
+            <p>
             <p><a href="{% url 'application_step_1' %}"class="btn btn-primary btn-large">Click to Apply</a>
             </p>
         </header>

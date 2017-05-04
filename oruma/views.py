@@ -16,7 +16,8 @@ from .forms import (recommenderForm,applicantForm, DependendForm,
                         RecommenderModelForm,
                         DependendModelFrom,
                         ApplicationModelForm,
-                        ReviewForm)
+                        ReviewForm,
+                        DetailModelFrom)
 from .models import Applicant, Recommender, Application, Dependend, Detail, Documents, ApplicationNotes
 
 # class bases views
@@ -168,24 +169,28 @@ def application_step_2(request, application_number):
 def application_step_3(request, application_number):
     application = get_object_or_404(Application, id=application_number)
     query = Detail.objects.filter(application = application)
+
+    '''
     SEX = (('M', 'Male'),('F', 'Female'))
     widget_dict = {
                 'aid_type': forms.TextInput(attrs={'class': 'form-control'}),
                 'add_information' : forms.Textarea(attrs={'placeholder': 'Add Extra infromation', 'rows':'3', 'class': 'form-control'}),
                 }
+    '''
+    Aid_choices = (('', ''),('House Repair', 'House Repair'),('Medical Treatment', 'Medical Treatment'),('Job Aid', 'Job Aid'),
+                            ('Loan Repayment', 'Loan Repayment'),('Education', 'Education'), ('Other', 'Other'))
+
+    widget_dict = {
+                    'aid_type': forms.Select(attrs={'class': 'form-control'}, choices=Aid_choices),
+                    'add_information' : forms.Textarea(attrs={'placeholder': 'Add Extra infromation', 'rows':'3', 'class': 'form-control'}),
+                    }
     DetailFormSet = modelformset_factory(Detail, exclude=('application',), widgets = widget_dict, extra=4, max_num=8)#fields='__all__') #
     if request.method == 'POST':
         application_form = ApplicationModelForm(request.POST, instance=application)
         application_form.save()
         formset = DetailFormSet(request.POST)
-        ''''
-        print(application_form)
-        print(application_form.is_valid())
-        if application_form.is_valid():
-            print('app form is valid')
-        if formset.is_valid():
-            print('formset is also valid')
-        '''
+        print(formset.is_valid())
+        
         if formset.is_valid() and application_form.is_valid():
             instances = formset.save(commit=False)
             for instance in instances:
@@ -197,6 +202,7 @@ def application_step_3(request, application_number):
     else:
         application_form = ApplicationModelForm(instance=application)
         formset = DetailFormSet(queryset=query)
+        print(formset.__dict__)
 
     context = { 'formset': formset , 'appform': application_form,}
     return render(request, 'oruma/stage3.html', context)
@@ -549,3 +555,42 @@ def app_reject(request, application_number):
     else:
         messages.success(request, 'Application failed to update.!')
         return HttpResponseRedirect(reverse('application_step_5', kwargs = {'application_number': application_number}))
+
+
+
+from django.forms import formset_factory
+
+def test_view(request):
+    application = Application.objects.first()
+    query = Detail.objects.filter(application = application)
+    Aid_choices = (('', ''),('House Repair', 'House Repair'),('Medical Treatment', 'Medical Treatment'),('Job Aid', 'Job Aid'),
+                        ('Loan Repayment', 'Loan Repayment'),('Education', 'Education'), ('Other', 'Other'))
+
+    widget_dict = {
+                'aid_type': forms.Select(attrs={'class': 'form-control'}, choices=Aid_choices),
+                'add_information' : forms.Textarea(attrs={'placeholder': 'Add Extra infromation', 'rows':'3', 'class': 'form-control'}),
+                }
+    DetailFormSet = modelformset_factory(Detail, exclude=('application',), widgets = widget_dict, extra=4, max_num=8)#fields='__all__') #
+    if request.method == 'POST':
+        application_form = ApplicationModelForm(request.POST, instance=application)
+        application_form.save()
+        formset = DetailFormSet(request.POST)
+        print(formset.is_valid())
+        if formset.is_valid():
+            instances = formset.save(commit=False)
+            for instance in instances:
+                instance.application = application
+                instance.save()
+
+
+            return HttpResponseRedirect(reverse('application_step_4', kwargs = {'application_number': application_number}))
+
+    else:
+        application_form = ApplicationModelForm(instance=application)
+        formset = DetailFormSet(queryset=query)
+
+
+
+    context = {'formset' : formset }
+
+    return render(request, 'oruma/testpage.html', context)
