@@ -8,49 +8,66 @@
 {% block content %}
   <div class="row">
     <div class="col-md-3 border border-shadow">
-      <h5><b>AP/ML/123</b><span class="label label-sm label-default pull-right">Approved<span></h5>
+      <h5><b>{{ application.application_number }}</b><span class="label label-sm label-default pull-right">{{ application.status }}<span></h5>
       <div>
-        <table class="table">
+        <table class="table table-bordered">
           <tr>
-            <td>No: of Earners</td>
-            <td>2</td>
+            <td>Aid Requested</td>
+            <td>{{ application.estimated_amount }}</td>
+          </tr>
+
+          <tr>
+            <td>Aid Approved</td>
+            <td>{{ application.ouruma_expected }}</td>
           </tr>
           <tr>
-            <td>No of Dependededs</td>
-            <td>5</td>
+            <td>Payment Mode</td>
+            <td>{{ application.payment_mode }}</td>
+          </tr>
+          <tr>
+            <td>Payment Frequency</td>
+            <td>{{ application.payment_frequency }}</td>
           </tr>
         </table>
 
-        <button type="button" class="btn btn-sm btn-primary active">Approve</button>
-        <button type="button" class="btn btn-sm btn-primary disabled">Submit</button>
-      </div>
-    </div>
-    <div class="col-md-9 border border-shadow">
-      <form class=""  method="post">
-        <div class="form-group">
-          <label for="comment">Add a new Note:</label>
-          <textarea class="form-control" rows="3" id="comment"></textarea>
-        </div>
-        <div style="text-align: right">
-              <button type="button" class="btn btn-primary">Save</button>
-        </div>
-      </form>
-
-      <div class="bs-callout bs-callout-default">
-        <h4>Unit 1 User Name <span class="label label-default pull-right">01/10/2016 11:30 am</span></h4>
-        This is a default callout.
-        There needs to be some chagnes to implement so taht i can approve it.This is a default callout.
-        There needs to be some chagnes to implement so taht i can approve itThis is a default callout.
-        There needs to be some chagnes to implement so taht i can approve it
-      </div>
-      <div class="bs-callout bs-callout-default">
-        <h4>Unit 1 User Name <span class="label label-default pull-right">01/10/2016 11:30 am</span></h4>
-        This is a default callout.
-      </div>
-
-
+    <div class="row" style="text-align: center; padding: 15px;">
+      {% if application.status == 'New' %}
+        <a href="{% url 'submittion_review' application.id %}" class="btn btn-sm btn-primary">Submit</a>
+      {% else %}
+              {% if user.is_staff %}
+                <div class="btn-group">
+                  <a href="{% url 'app_approve' application.id %}" class="btn btn-sm btn-success">Approve</a>
+                  <a href="{% url 'app_reject' application.id %}" class="btn btn-sm btn-danger">Reject</a>
+                </div>
+          {% endif %}
+      {% endif %}
     </div>
 
   </div>
+</div>
+    <div class="col-md-9 border border-shadow">
+      <form class="" method="post">
+
+          {% csrf_token %}
+          {{ form.as_p }}
+        <div style="text-align: right">
+          <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+      </form>
+
+      {% for note in notes%}
+
+        <div class="bs-callout bs-callout-default">
+          <h4>{{ request.user }} <span class="label label-default pull-right" style="font-size: 10px;">{{ note.created_date |date }} </span></h4>
+            {{ note.note }}
+        </div>
+
+      {% endfor %}
+    </div>
+
+  </div>
+
+
+
 
 {% endblock content %}

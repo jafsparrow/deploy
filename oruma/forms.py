@@ -2,7 +2,7 @@ from django import forms
 
 
 # project related
-from .models import Applicant, Recommender, Dependend,Detail, Application
+from .models import Applicant, Recommender, Dependend,Detail, Application, ApplicationNotes
 
 class ApplicantModelForm(forms.ModelForm):
     first_name = forms.CharField(widget = forms.TextInput(attrs={'placeholder': 'First Name', 'class': 'form-control'}), max_length = 100, label='First Name')
@@ -114,3 +114,9 @@ class DependendForm(forms.Form):
     relation = forms.CharField(max_length=100, label='Relation')
     dob = forms.DateField( widget = forms.TextInput(attrs={'placeholder': 'MM/DD/YYYY'}), label='Date of Birth')
     occupattion = forms.CharField(max_length=100, label='Occupation')
+
+class ReviewForm(forms.ModelForm):
+    note = forms.CharField(widget = forms.Textarea(attrs={'placeholder': 'Reivew Notes', 'class': 'form-control', 'rows':'3'}), max_length=300, label='Add a new Note:', required=False)
+    class Meta:
+        model =  ApplicationNotes
+        fields = ['note']

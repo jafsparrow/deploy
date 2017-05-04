@@ -32,7 +32,7 @@
         <tr>
             <td>{{ forloop.counter }}</td>
             <td>{{ form.description }}</td>
-            {{ MEDIA_URL }}{{ form.initial.document }}
+
             {% if form.initial %}
               <td><a href="{{ form.initial.document}}">{{ form.initial.description}}</a></td>
               {{ form.id }}

@@ -1,5 +1,5 @@
 from django.db import models
-#from django.contrib.auth.models import User
+from django.contrib.auth.models import User
 # Create your models here.
 
 
@@ -87,7 +87,8 @@ class Application(models.Model):
 class ApplicationNotes(models.Model):
     Application = models.ForeignKey(Application)
     note = models.TextField(null=True)
-    created = models.DateField(auto_now=True)
+    created_date = models.DateField(auto_now_add=True)
+    created_by = models.ForeignKey(User)
 
 
 class Documents(models.Model):

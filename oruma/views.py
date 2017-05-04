@@ -15,8 +15,9 @@ from .forms import (recommenderForm,applicantForm, DependendForm,
                         ApplicantModelForm,
                         RecommenderModelForm,
                         DependendModelFrom,
-                        ApplicationModelForm)
-from .models import Applicant, Recommender, Application, Dependend, Detail, Documents
+                        ApplicationModelForm,
+                        ReviewForm)
+from .models import Applicant, Recommender, Application, Dependend, Detail, Documents, ApplicationNotes
 
 # class bases views
 from django.views import View
@@ -271,7 +272,25 @@ def submittion_review(request, application_number):
 
 
 def review_view(request, application_number):
-    return render(request, 'oruma/review.html',{})
+    application = get_object_or_404(Application, id=application_number)
+    #if application exists.
+
+    #Read all the existing notes.
+    notes = ApplicationNotes.objects.filter(Application=application).order_by('-created_date')
+    # in hte post create a new note for the application.
+
+    if request.method == 'POST':
+        form = ReviewForm(request.POST)
+        new_note = form.save(commit=False)
+        new_note.Application = application
+        new_note.created_by = request.user
+        new_note.save()
+        return HttpResponseRedirect(reverse('review_view', kwargs = {'application_number': application_number}))
+
+    form = ReviewForm()
+    context = {'form' : form, 'application' : application, 'notes': notes}
+    return render(request, 'oruma/review.html',context)
+
 
 
 # Create your views here.

@@ -255,57 +255,67 @@
 
 </section>
 
-<section class="docs">
-{% if docs %}
-    <h4>Attached Documents
+<section>
+  <div class="row">
+    <div class="col-md-12">
 
-      {% if request.user.is_staff or application.status == 'New' or application.status == 'Review' %}
-      <a href="{% url 'application_step_4' application.id %}" class="btn btn-success pull-right">Manage Docs</a>
-      {% endif %}
-    </h4>
-    <hr>
-    <div class="row">
-      <div class="col-md-12">
-          <table class="table table-bordered">
 
+
+    {% if docs %}
+        <h4>Attached Documents
+            {% if request.user.is_staff or application.status == 'New' or application.status == 'Review' %}
+            <a href="{% url 'application_step_4' application.id %}" class="btn btn-success pull-right">Manage Docs</a>
+            {% endif %}
+        </h4>
+        <hr>
+        <div class="row">
+          <div class="col-md-12">
+            <table class="table table-bordered">
               <thead>
                 <th width="10%">#</th>
                 <th>Document</th>
               </thead>
-              {% for doc in docs %}
+            {% for doc in docs %}
               <tr>
                 <td>{{ forloop.counter }}</td>
-                <td>{{ doc.description }}</td>
+                <td>{{ doc.description }} <a href="{{doc.document.url}}"><i class="fa fa-download" aria-hidden="true"></i> </a></td>
               </tr>
+            </table>
+            {% endfor %}
+          </div>
+        </div>
+    {% else %}
+      <h4>Attached Documents</h4><h4 class="label label-danger">No Documents attached
+          {% if request.user.is_staff or application.status == 'New' or application.status == 'Review' %}
+            <a href="{% url 'application_step_4' application.id %}" class="btn btn-success pull-right">Add Docs</a>
+          {% endif %}
+      </h4>
 
-              {% endfor %}
-{% else %}
-  <h4>Attached Documents</h4><h4 class="label label-danger">No Documents attached
-    {% if request.user.is_staff or application.status == 'New' or application.status == 'Review' %}
-    <a href="{% url 'application_step_4' application.id %}" class="btn btn-success pull-right">Add Docs</a>
     {% endif %}
+    <hr>
 
-  </h4>
-  <hr>
-{% endif %}
-
+      </div>
+  </div>
 </section>
+
 <section style="margin-bottom:50px">
   <h4>Enquiry Details</h4>
   <hr>
-  <div class="row ">
-    <div class="col-md-6 border">
-      <h5><b>Enquiry Team</b></h5>
-      {{ application.enquiry_team }}
+  <div class="row">
+    <div class="col-md-12">
+
+      <div class="col-md-6 border">
+        <h5><b>Enquiry Team</b></h5>
+        {{ application.enquiry_team }}
+      </div>
+      <div class="col-md-6 border">
+        <h5><b>Enquiry Notes</b></h5>
+        {{ application.enquiry_notes}}
+      </div>
+
     </div>
-    <div class="col-md-6 border">
-      <h5><b>Enquiry Notes</b></h5>
-      {{ application.enquiry_notes}}
-    </div>
+
 
   </div>
 </section>
-{% endblock %}
-{% block forms %}
-
-{% endblock forms %}
+{% endblock content %}

@@ -5,20 +5,40 @@
     <meta charset="utf-8">
     <title>Oruma | {% block title %}Trust{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'oruma/css/style.css' %}">
     {% block headimport %} {% endblock headimport %}
   </head>
   <body>
-    {% include 'nav.html' %}
-    <div class="container">
-      {% block content %}
-      {% endblock %}
-      {% block forms %}
-      {% endblock forms %}
-    </div>
+
+    <header id="header">
+            {% include 'nav.html' %}
+    </header>
+
+      <div class="container" style="min-height: 400px">
+        {% block content %}
+        {% endblock %}
+        {% block forms %}
+        {% endblock forms %}
+
+      </div>
+
+    {% include 'footer.html' %}
+
+
+
+
+
+
+
+
+
+
 <!---
 <script src="{% static 'oruma/js/jquery.js' %}" charset="utf-8"></script>
 <script src="{% static 'oruma/js/boostrap.js' %}" charset="utf-8"></script>
 !--->
+
 
 {% block extrajs %}
 {% endblock extrajs %}
