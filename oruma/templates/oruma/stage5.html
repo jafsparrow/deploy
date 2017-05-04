@@ -278,7 +278,7 @@
             {% for doc in docs %}
               <tr>
                 <td>{{ forloop.counter }}</td>
-                <td>{{ doc.description }} <a href="{{doc.document.url}}"><i class="fa fa-download" aria-hidden="true"></i> </a></td>
+                <td>{{ doc.description }} <a href="{{doc.document.url}}" download><i class="fa fa-download" aria-hidden="true"></i> </a></td>
               </tr>
             </table>
             {% endfor %}
