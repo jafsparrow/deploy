@@ -2,14 +2,6 @@
 
 
     {% block headcss %}
-<style media="screen">
-  .container{
-
-
-  }
-
-
-</style>
 
      {% endblock headcss %}
 
@@ -19,6 +11,8 @@
 
         <!-- Jumbotron Header -->
         <header class="jumbotron hero-spacer">
+
+
             <h2>Ourma Charitable Trust</h2>
             <p><blockquote >
               Charity can be the outward expression of faith and hope
@@ -26,11 +20,22 @@
               Work towards self discipline, inclusive efforts to nurture social well being and
             bridging the kind hearted to the needy one
             <p>
-            <p><a href="{% url 'application_step_1' %}"class="btn btn-primary btn-large">Click to Apply</a>
-            </p>
-        </header>
+
+              {% if request.user.is_authenticated %}
+                <p><a href="{% url 'application_step_1' %}"class="btn btn-primary btn-large">Click to Apply</a>
+                </p>
+              {% else %}
+              <p><a href="{% url 'login' %}"class="btn btn-primary btn-large">Login To Apply</a>
+              </p>
+              {% endif%}
+
+
+
+          </header>
 
         <hr>
+
+
 
         <!-- Title -->
         <div class="row">

@@ -16,9 +16,9 @@
         <li><a href="#">About</a></li>
         {% if user.is_authenticated %}
           <li {% if request.path == '/oruma/applications/' %} class="active" {% endif %}><a href="/oruma/applications/" >Applications</a></li>
-          <li><a href="{% url 'logout' %}" >Logout</a></li>
+          <li {% if request.path == '/accounts/logout/' %} class="active" {% endif %} ><a href="{% url 'logout' %}" >Logout</a></li>
         {% else %}
-          <li><a href="{% url 'login' %}">Login</a></li>
+          <li {% if request.path == '/accounts/login/' %} class="active" {% endif %}><a href="{% url 'login' %}">Login</a></li>
         {% endif %}
       </ul>
     </div><!--/.nav-collapse -->
