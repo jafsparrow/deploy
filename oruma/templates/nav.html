@@ -11,13 +11,15 @@
       <a class="navbar-brand" href="/">Oruma Charity</a>
     </div>
     <div id="navbar" class="collapse navbar-collapse">
+
       <ul class="nav navbar-nav navbar-right">
         <li {% if request.path == '/' %} class="active" {% endif %}><a href="/">Home</a></li>
         <li><a href="#">About</a></li>
         {% if user.is_authenticated %}
           <li {% if request.path == '/oruma/applications/' %} class="active" {% endif %}><a href="/oruma/applications/" >Applications</a></li>
           <li {% if request.path == '/accounts/logout/' %} class="active" {% endif %} ><a href="{% url 'logout' %}" >Logout</a></li>
-        {% else %}
+          
+          {% else %}
           <li {% if request.path == '/accounts/login/' %} class="active" {% endif %}><a href="{% url 'login' %}">Login</a></li>
         {% endif %}
       </ul>

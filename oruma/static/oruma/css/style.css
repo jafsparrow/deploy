@@ -101,3 +101,9 @@
 {
     background-color:LightGray;
 }
+
+
+/* form error list */
+.errorlist {
+  color: red;
+}

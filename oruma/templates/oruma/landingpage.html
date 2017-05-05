@@ -12,7 +12,9 @@
         <!-- Jumbotron Header -->
         <header class="jumbotron hero-spacer">
 
-
+          {% if request.user.is_authenticated %}
+            <h2>Hello.. <b>{{ request.user.username }}</b></h2>
+          {% endif%}
             <h2>Ourma Charitable Trust</h2>
             <p><blockquote >
               Charity can be the outward expression of faith and hope

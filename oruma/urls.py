@@ -31,7 +31,7 @@ urlpatterns = [
     url(r'^applications/$', applications, name='applications' ),
     # Steps
     url(r'^stage1/$', application_step_1, name='application_step_1'),
-    url(r'^stage2/(?P<application_number>\d+)/$', application_step_2, name='application_step_2'),
+    url(r'^stage2/(?P<application_number>\d+)$', application_step_2, name='application_step_2'),
     url(r'^stage3/(?P<application_number>\d+)/$', application_step_3, name='application_step_3'),
     url(r'^stage4/(?P<application_number>\d+)/$', application_step_4, name='application_step_4'),
     url(r'^stage5/(?P<application_number>\d+)/$', application_step_5, name='application_step_5'),

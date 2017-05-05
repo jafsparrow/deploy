@@ -53,7 +53,7 @@ class Application(models.Model):
     self_amount = models.IntegerField(default=0)
     ouruma_expected = models.IntegerField(default=0)
     STATUS = (('New','New'),('Submitted','Submitted'),('Review', 'Review'),('Approved', 'Approved'),('Rejected','Rejected'))
-    status = models.CharField(max_length = 10, choices =STATUS, default='N' )
+    status = models.CharField(max_length = 10, choices =STATUS, default='New' )
     created = models.DateField(auto_now_add=True)
     updated = models.DateField(auto_now = True)
     application_number = models.CharField(max_length=60)

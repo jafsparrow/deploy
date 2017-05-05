@@ -1,5 +1,5 @@
 from django import forms
-
+import re
 
 # project related
 from .models import Applicant, Recommender, Dependend,Detail, Application, ApplicationNotes
@@ -20,6 +20,14 @@ class ApplicantModelForm(forms.ModelForm):
         model = Applicant
         fields = '__all__'
 
+    def clean_phone_number (self):
+        phone_number = self.cleaned_data['phone_number']
+        rule = re.compile(r'^(?:\+?91)?[1-9]\d{9,13}$')
+        if not rule.search(phone_number):
+            raise forms.ValidationError("Please enter a valid Phone Number")
+
+        return phone_number
+
 class RecommenderModelForm(forms.ModelForm):
     first_name = forms.CharField(widget = forms.TextInput(attrs={'placeholder': 'First Name', 'class': 'form-control'}),max_length = 100, label='First Name')
     last_name = forms.CharField(widget = forms.TextInput(attrs={'placeholder': 'Second Name', 'class': 'form-control'}),max_length=100, label='Second Name')
@@ -30,6 +38,15 @@ class RecommenderModelForm(forms.ModelForm):
     class Meta:
         model = Recommender
         fields= '__all__'
+
+    def clean_phone_number (self):
+        phone_number = self.cleaned_data['phone_number']
+        rule = re.compile(r'^(?:\+?91)?[1-9]\d{9,13}$')
+        if not rule.search(phone_number):
+            raise forms.ValidationError("Please enter a valid Phone Number")
+
+        return phone_number
+
 
 
 class DependendModelFrom(forms.ModelForm):

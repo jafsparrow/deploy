@@ -100,6 +100,7 @@ def application_step_1(request):
         applicant=ApplicantModelForm(request.POST or None, prefix='applicant')
         recommender=RecommenderModelForm(request.POST or None, prefix='recommender')
         user_entered_app_number = request.POST['application_user_number']
+
         if recommender.is_valid() and applicant.is_valid():
             # save applicant
             recommender_obj=  recommender.save()
@@ -113,7 +114,7 @@ def application_step_1(request):
                 #return render(request, 'oruma/stage2.html', {'application': application.id })
         else:
             print("Form date is not valid and failed at form.isvalid method")
-            return HttpResponseRedirect(reverse('application_step_1'))
+            #return HttpResponseRedirect(reverse('application_step_1'))
     # for GET render This.
     else:
         recommender=RecommenderModelForm(prefix='recommender')
@@ -130,6 +131,13 @@ def application_step_2(request, application_number):
     #check if there is next save the next from get request.
     #redirect_to = request.GET.get(next, None)
     #print(redirect_to)
+    redirect_to = None
+    print(request)
+    try:
+        redirect_to = request.GET['next']
+    except:
+        pass
+
     application = get_object_or_404(Application, id=application_number)
     applicant = application.Applicant
     #Dependend_form = DependendForm()
@@ -152,7 +160,12 @@ def application_step_2(request, application_number):
             for instance in instances:
                 instance.applicant = applicant
                 instance.save()
-            return HttpResponseRedirect(reverse('application_step_3', kwargs = {'application_number': application_number}))
+
+            if redirect_to is None:
+                return HttpResponseRedirect(reverse('application_step_3', kwargs = {'application_number': application_number}))
+            else:
+                messages.success(request, 'Depended details have been updated..!')
+                return HttpResponseRedirect(redirect_to)
             #if redirect_to is None or redirect_to == '':
 
             #else:
@@ -167,6 +180,15 @@ def application_step_2(request, application_number):
 
 @login_required
 def application_step_3(request, application_number):
+
+    redirect_to = None
+    print(request)
+    try:
+        redirect_to = request.GET['next']
+    except:
+        pass
+
+
     application = get_object_or_404(Application, id=application_number)
     query = Detail.objects.filter(application = application)
 
@@ -190,15 +212,19 @@ def application_step_3(request, application_number):
         application_form.save()
         formset = DetailFormSet(request.POST)
         print(formset.is_valid())
-        
+
         if formset.is_valid() and application_form.is_valid():
             instances = formset.save(commit=False)
             for instance in instances:
                 instance.application = application
                 instance.save()
+            if redirect_to is None:
+                return HttpResponseRedirect(reverse('application_step_4', kwargs = {'application_number': application_number}))
+            else:
+                messages.success(request, 'Financial aid details have been updated..!')
+                return HttpResponseRedirect(redirect_to)
 
 
-            return HttpResponseRedirect(reverse('application_step_4', kwargs = {'application_number': application_number}))
     else:
         application_form = ApplicationModelForm(instance=application)
         formset = DetailFormSet(queryset=query)
