@@ -99,6 +99,16 @@ class Documents(models.Model):
     def __str__(self):
         return self.description
 
+# following code if to delete related documents when the entry is deleted using Admin Interface
+from django.db.models.signals import pre_delete
+from django.dispatch.dispatcher import receiver
+
+@receiver(pre_delete, sender=Documents)
+def mymodel_delete(sender, instance, **kwargs):
+    # Pass false so FileField doesn't save the model.
+    instance.document.delete(False)
+
+
 
 
 class Detail(models.Model):
