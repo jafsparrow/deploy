@@ -159,6 +159,16 @@ def application_step_2(request, application_number):
             instances = formset.save(commit=False)
             for instance in instances:
                 instance.applicant = applicant
+                # This is a hack to avoid the fomset emtpy entry for any of the fields
+                if not instance.occupation:
+                    instance.occupation = "None specified"
+                if not instance.age:
+                    instance.age = 12
+                if not instance.relation:
+                    instance.relation = "None specified"
+                if not instance.full_name:
+                    instance.full_name = "Please update the Name"
+                
                 instance.save()
 
             if redirect_to is None:

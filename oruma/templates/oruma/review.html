@@ -33,7 +33,9 @@
     <div class="row" style="text-align: center; padding: 15px;">
       {% if application.status == 'New' %}
         <a href="{% url 'submittion_review' application.id %}" class="btn btn-sm btn-primary">Submit</a>
-      {% else %}
+
+
+      {% elif application.status == 'Review' %}
               {% if user.is_staff %}
                 <div class="btn-group">
                   <a href="{% url 'app_approve' application.id %}" class="btn btn-sm btn-success">Approve</a>

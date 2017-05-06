@@ -1,48 +1,96 @@
 {% extends 'base.html' %}
+{% load static%}
+
+    {% block headcss %}
+<style media="screen">
+
+.login_area {
+
+  box-shadow: 1px 1px 30px #888888;
+  padding-bottom: 40px;
+
+}
+
+.error_area {
+  color: red;
+  text-align: center;
+}
+
+.login_title  {
+  padding-top: 15px;
+  text-align: center;
+}
+
+
+.login_title img {
+  width: 60px;
+}
+
+</style>
+
+
+
+
+     {% endblock headcss %}
+
+
 
 {% block content %}
 
+
 <div class="row">
-  <div class="col-md-3 col-md-offset-4">
-    {% if form.errors %}
-      <p>You username and password did not match.!! Please try agian</p>
-    {% endif %}
-
-
-    {% if next %}
-      {% if user.is_authenticated %}
-        <p>You account does not have access to this page. To proceed please login</p>
-      {% else %}
-        <p>Please Login to see this page</p>
-      {% endif %}
-    {% endif %}
-
-
+  <div class="col col-md-4 col-md-offset-4 login_area">
     <form class="" action="{% url 'login' %}" method="post">
       {% csrf_token %}
+      <div class="login_title">
+          <h4>Oruma Application Login</h4>
+          <img src="{% static 'oruma/images/logo.png' %}" alt="">
+      </div>
 
-      <div class="">
-        <td>{{ form.username.label_tag }}</td>
-        <td>{{ form.username }}</td>
+      <div class="error_area ">
+        {% if form.errors %}
+          <p>You username and password did not match.!! Please try agian</p>
+        {% endif %}
+
+
+        {% if next %}
+          {% if user.is_authenticated %}
+            <p>You account does not have access to this page. To proceed please
+
+login</p>
+          {% else %}
+            <p>Please Login to see this page</p>
+          {% endif %}
+        {% endif %}
+
+      </div>
+      <div class="input_area">
+        <div class="form-group">
+          {{ form.username.label_tag }}
+          <input type="text" class="form-control" id="{{ form.username.auto_id }}" name="{{ form.username.html_name }}" placeholder="Enter User Name">
+        </div>
+
+        <div class="form-group">
+          {{ form.password.label_tag }}
+          <input type="password" class="form-control" id="{{ form.password.auto_id }}" name="{{ form.password.html_name }}" placeholder="Enter Password">
+        </div>
+
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary btn-block" name="button">Login</button>
+        </div>
+
       </div>
 
 
-      <div class="">
-        <td>{{ form.password.label_tag}}</td>
-        <td>{{ form.password }}</td>
-      </div>
-
-      <div class="">
-        <input type="submit" class="btn btn-primary pull-right" name="" value="login"/>
-        <input type="hidden" name="" value="">
-      </div>
     </form>
-<!---
-    {# if we have password reset view #}
-    <p><a  href="{% url 'password_reset' %}">Forgot Your Password</a></p> --->
 
   </div>
 
 </div>
+
+
+
+</div>
+
 
 {% endblock %}

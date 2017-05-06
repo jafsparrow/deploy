@@ -34,10 +34,10 @@ class Applicant(models.Model):
 
 class Dependend(models.Model):
     applicant = models.ForeignKey(Applicant, on_delete= models.CASCADE)
-    full_name = models.CharField(max_length=100)
-    relation = models.CharField(max_length=50, null=True)
-    age = models.IntegerField(null=True)
-    occupation = models.CharField(max_length=50, null=True)
+    full_name = models.CharField(max_length=100, blank=True)
+    relation = models.CharField(max_length=50, null=True, blank=True)
+    age = models.IntegerField(null=True, blank=True)
+    occupation = models.CharField(max_length=50, null=True, blank=True)
 
     def __str__(self):
         return self.full_name
